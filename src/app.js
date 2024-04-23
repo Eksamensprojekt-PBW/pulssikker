@@ -1,4 +1,13 @@
+// Requirements
 const { MongoClient, ServerApiVersion } = require("mongodb");
+const express = require("express");
+
+// Variables
+const port = 3000;
+const app = express();
+
+
+// MongoDB Client Connect
 const uri =
   "mongodb+srv://pulssikker:Hejsa123@pulssikker.brk6urn.mongodb.net/?retryWrites=true&w=majority&appName=pulssikker";
 
@@ -27,3 +36,14 @@ async function run() {
 }
 run().catch(console.dir);
 
+// Routes
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
+
+
+// Application Configuration
+app.listen(port, () => {
+  console.log("Server is running on PORT 3000");
+
+} )
