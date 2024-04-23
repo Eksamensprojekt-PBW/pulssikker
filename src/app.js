@@ -5,6 +5,7 @@ const session = require("express-session");
 const path = require("path");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const fs = require('fs');
 
 // MongoDB Client Connect
 const uri =
@@ -22,6 +23,7 @@ const client = new MongoClient(uri, {
 // Variables
 const port = 3000;
 const app = express();
+let logId = 0; // Initialize the log ID counter
 
 
 const helmetConfig = {
@@ -54,6 +56,12 @@ async function run() {
   }
 }
 run().catch(console.dir);
+
+// Middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} - ${req.url}`)
+  next();
+});
 
 // Routes
 app.get("/", (req, res) => {
