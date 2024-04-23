@@ -1,14 +1,18 @@
 // Requirements
+require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const courseRoutes = require("./routes/index");
 
+// Variables
+const port = 3000;
+const app = express();
 // MongoDB Client Connect
-const uri =
-  "mongodb+srv://pulssikker:Hejsa123@pulssikker.brk6urn.mongodb.net/?retryWrites=true&w=majority&appName=pulssikker";
+const uri = process.env.MONGO_URI;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -18,11 +22,6 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-
-// Variables
-const port = 3000;
-const app = express();
-
 
 const helmetConfig = {
   contentSecurityPolicy: {
@@ -41,35 +40,26 @@ app.use(helmet(helmetConfig));
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    // Connect the client to the server (optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    const pingResult = await client.db("admin").command({ ping: 1 });
+    console.log("Successfully connected to MongoDB", pingResult);
+
+    // Here you can pass the client or specific collections to your routes
+    app.use("/", courseRoutes(client));
+
+    // Routes can be here if they don't need database access
+    app.get("/", (req, res) => {
+      res.send("Hello world");
+    });
+
+    // Start the server
+    app.listen(port, () => {
+      console.log(`Server is running on PORT ${port}`);
+    });
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
   }
 }
-run().catch(console.dir);
-
-// Routes
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
-
-app.get("/privat", (req, res) => {
-  res.send("Hello world");
-});
-
-app.get("/erhverv", (req, res) => {
-  res.send("Hello world");
-});
-
-
-// Application Configuration
-app.listen(port, () => {
-  console.log("Server is running on PORT 3000");
-});
+run().catch(console.error);
