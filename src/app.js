@@ -1,11 +1,7 @@
 // Requirements
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
-
-// Variables
-const port = 3000;
-const app = express();
-
+const helmet = require("helmet");
 
 // MongoDB Client Connect
 const uri =
@@ -19,6 +15,26 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
+// Variables
+const port = 3000;
+const app = express();
+
+
+const helmetConfig = {
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      "script-src": ["'self'", "example.com"],
+      "style-src": null, // Disable stylesheets
+    },
+  },
+  frameguard: {
+    action: "deny",
+  },
+};
+
+app.use(helmet(helmetConfig));
 
 async function run() {
   try {
@@ -41,9 +57,7 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-
 // Application Configuration
 app.listen(port, () => {
   console.log("Server is running on PORT 3000");
-
-} )
+});
