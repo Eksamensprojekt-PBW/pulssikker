@@ -2,6 +2,9 @@
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
+const session = require("express-session");
+const path = require("path");
+const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const courseRoutes = require("./routes/index");
 
@@ -59,5 +62,4 @@ async function run() {
     console.error("Failed to connect to MongoDB", error);
   }
 }
-
 run().catch(console.error);
