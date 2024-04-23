@@ -1,0 +1,27 @@
+<form id="updateCourseForm">
+  <input type="text" name="title" value="Initial title" required />
+  <input type="number" name="duration" value="8" required />
+  <input type="number" name="price" value="625" required />
+  <textarea name="description" required>Førstehjælp ved hjertestop...</textarea>
+  <button type="submit">Update Course</button>
+</form>
+
+<script>
+  document
+    .getElementById("updateCourseForm")
+    .addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      const response = await fetch("/courses/course-id", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        alert("Course updated successfully");
+      } else {
+        alert("Failed to update course");
+      }
+    });
+</script>
