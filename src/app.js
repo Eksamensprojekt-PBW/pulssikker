@@ -15,6 +15,8 @@ const app = express();
 // MongoDB Client Connect
 const uri = process.env.MONGO_URI;
 
+app.set("view engine", "ejs");
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -51,9 +53,14 @@ async function run() {
     app.use("/", courseRoutes(client));
 
     // Routes can be here if they don't need database access
-    app.get("/", (req, res) => {
-      res.send("Hello world");
-    });
+      /*app.get("/", (req, res) => {
+        res.send("Hello world");
+      });
+    */
+
+      app.use((req, res) => {
+        res.status(404).render("404");
+      })
 
     // Start the server
     app.listen(port, () => {
