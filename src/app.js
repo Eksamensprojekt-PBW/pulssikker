@@ -1,6 +1,10 @@
 // Requirements
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
+const session = require("express-session");
+const path = require("path");
+const bodyParser = require("body-parser");
+
 
 // Variables
 const port = 3000;
@@ -38,6 +42,14 @@ run().catch(console.dir);
 
 // Routes
 app.get("/", (req, res) => {
+  res.send("Hello world");
+});
+
+app.get("/privat", (req, res) => {
+  res.send("Hello world");
+});
+
+app.get("/erhverv", (req, res) => {
   res.send("Hello world");
 });
 
