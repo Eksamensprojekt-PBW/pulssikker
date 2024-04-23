@@ -8,5 +8,17 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "helmet": "^7.1.0",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.2",
+    "nodemailer": "^6.9.13",
+    "uuid": "^9.0.1"
+  }
 }
