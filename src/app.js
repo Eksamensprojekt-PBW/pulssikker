@@ -1,6 +1,9 @@
 // Requirements
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
+const session = require("express-session");
+const path = require("path");
+const bodyParser = require("body-parser");
 const helmet = require("helmet");
 
 // MongoDB Client Connect
@@ -56,6 +59,15 @@ run().catch(console.dir);
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
+
+app.get("/privat", (req, res) => {
+  res.send("Hello world");
+});
+
+app.get("/erhverv", (req, res) => {
+  res.send("Hello world");
+});
+
 
 // Application Configuration
 app.listen(port, () => {
