@@ -21,7 +21,17 @@
         </ul>
     </nav>
     
-    
+    <h1>Business Courses</h1>
+    <div class="course-list">
+        <% courses.forEach(function(course) { %>
+            <div class="course">
+                <h2><%= course.title %></h2>
+                <p><strong>Duration:</strong> <%= course.duration %> hours</p>
+                <p><strong>Description:</strong> <%= course.description %></p>
+                <p><strong>Price:</strong> <%= course.price %> <%= course.currency %> (excl. VAT)</p>
+            </div>
+        <% }); %>
+    </div>
 
 </body>
 </html>
