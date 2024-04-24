@@ -1,14 +1,13 @@
 // Requirements
-require('dotenv').config();
+require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
-const fs = require('fs');
+const fs = require("fs");
 const courseRoutes = require("./routes/index");
-
 
 // Variables
 const port = 3000;
@@ -17,6 +16,9 @@ const app = express();
 const uri = process.env.MONGO_URI;
 
 app.set("view engine", "ejs");
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -44,13 +46,14 @@ app.use(helmet(helmetConfig));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(session({
-  secret: 'your_secret_key',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}));
-
+app.use(
+  session({
+    secret: "your_secret_key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  })
+);
 
 async function run() {
   try {
@@ -64,14 +67,14 @@ async function run() {
     app.use("/", courseRoutes(client));
 
     // Routes can be here if they don't need database access
-      /*app.get("/", (req, res) => {
+    /*app.get("/", (req, res) => {
         res.send("Hello world");
       });
     */
 
-      app.use((req, res) => {
-        res.status(404).render("404");
-      })
+    app.use((req, res) => {
+      res.status(404).render("404");
+    });
 
     // Start the server
     app.listen(port, () => {
