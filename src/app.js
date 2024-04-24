@@ -9,6 +9,7 @@ const helmet = require("helmet");
 const fs = require('fs');
 const courseRoutes = require("./routes/index");
 
+
 // Variables
 const port = 3000;
 const app = express();
@@ -40,6 +41,16 @@ const helmetConfig = {
 };
 
 app.use(helmet(helmetConfig));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
 
 async function run() {
   try {
