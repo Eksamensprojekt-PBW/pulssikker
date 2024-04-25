@@ -1,25 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Privat</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <nav>
-        <div>
-            <a href="/"><h1>PulsSikker</h1></a>
-            <p>Førstehjælps kurser</p>
-        </div>
-        <ul>
-            <li><a href="/">PulsSikker</a></li>
-            <li><a href="/erhverv">erhverv</a></li>
-            <li><a href="/privat">privat</a></li>
-            <li><a href="/om">om os</a></li>
-            <li><a href="/kontakt">kontakt</a></li>
-        </ul>
+      <div>
+        <a href="/"><h1>PulsSikker</h1></a>
+        <p>Førstehjælps kurser</p>
+      </div>
+      <ul>
+        <li><a href="/">PulsSikker</a></li>
+        <li><a href="/erhverv">erhverv</a></li>
+        <li><a href="/privat">privat</a></li>
+        <li><a href="/om">om os</a></li>
+        <li><a href="/kontakt">kontakt</a></li>
+      </ul>
     </nav>
-    
-</body>
+
+    <h1>Private Courses</h1>
+    <div class="course-list">
+      <% courses.forEach(function(course) { %>
+      <div class="course">
+        <h2><%= course.title %></h2>
+        <p><strong>Duration:</strong> <%= course.duration %> hours</p>
+        <p><strong>Description:</strong> <%= course.description %></p>
+        <p>
+          <strong>Price:</strong> <%= course.price %> <%= course.currency %>
+        </p>
+        <!-- Add button to open order form -->
+        <button
+          onclick="document.getElementById('orderForm<%= course._id %>').style.display='block'"
+        >
+          Order Course
+        </button>
+
+        <!-- Order Form -->
+        <div id="orderForm<%= course._id %>" style="display: none">
+          <form action="/order-course" method="post">
+            <input type="hidden" name="courseId" value="<%= course._id %>" />
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
+            <textarea
+              name="additionalInfo"
+              placeholder="Additional Information"
+            ></textarea>
+            <button type="submit">Submit Order</button>
+          </form>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </body>
 </html>

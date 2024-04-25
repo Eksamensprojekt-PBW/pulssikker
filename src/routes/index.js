@@ -1,4 +1,3 @@
-// routes/index.js
 const express = require("express");
 // import middleware
 const middlewares = require("../middleware");
@@ -10,40 +9,40 @@ const passport = require("passport");
 const { users } = require('../app');
 
 
-// We export a function that will accept the database client
 module.exports = (client) => {
   const router = express.Router();
-
-  // Access the database collections
   const db = client.db("FirstAidCourses");
   const privateCoursesCollection = db.collection("privateCourses");
   const businessCoursesCollection = db.collection("businessCourses");
 
-  // Define routes here using the passed-in collections
+  // Serve initial pages
   router.get("/", (req, res) => {
     res.render("index");
   });
 
+  // Fetch and render business courses data directly
   router.get("/erhverv", async (req, res) => {
     try {
       const courses = await businessCoursesCollection.find({}).toArray();
-      res.json(courses);
-      res.render("erhverv");
+      res.render("erhverv", { courses }); // Assuming you have an EJS template named "erhverv" that expects 'courses' data
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error("Failed to fetch business courses:", error);
+      res.status(500).render("error", { error: "Internal Server Error" }); // You can have a generic error.ejs template
     }
   });
 
+  // Fetch and render private courses data directly
   router.get("/privat", async (req, res) => {
     try {
       const courses = await privateCoursesCollection.find({}).toArray();
-      res.json(courses);
-      res.render("privat");
+      res.render("privat", { courses }); // Assuming you have an EJS template named "privat" that expects 'courses' data
     } catch (error) {
-      res.status(500).json({ error: "Internal Server Error" });
+      console.error("Failed to fetch private courses:", error);
+      res.status(500).render("error", { error: "Internal Server Error" });
     }
   });
 
+  // Contact and About pages
   router.get("/kontakt", (req, res) => {
     res.render("kontakt");
   });
