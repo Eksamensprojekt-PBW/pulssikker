@@ -1,5 +1,14 @@
 // routes/index.js
 const express = require("express");
+// import middleware
+const middlewares = require("../middleware");
+// import bcrypt
+const bcrypt = require("bcrypt");
+const passport = require("passport");
+
+//---------------- udskift med database istede ---------------------
+const { users } = require('../app');
+
 
 // We export a function that will accept the database client
 module.exports = (client) => {
@@ -42,6 +51,33 @@ module.exports = (client) => {
   router.get("/om", (req, res) => {
     res.render("om");
   });
+
+  router.get("/login", passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/login",
+    failureFlash: true
+  }));
+
+  router.get("/registrer", (req, res) => {
+    res.render("registrer");
+  });
+
+  router.post("/registrer", async (req, res) => {
+    try {
+      //---------------- udskift med database entry istede ---------------------
+      // add database logic here to add user to database
+
+      users.push({
+        id: Date.now().toString(),
+        name: hashedUsername = await bcrypt.hash(req.body.password, 10),
+        email: hashedEmail = await bcrypt.hash(req.body.email, 10),
+        password: hashedPassword = await bcrypt.hash(req.body.username, 10)
+      })
+    } catch (error) {
+      res.redirect("/registrer")
+    }
+    console.log(users);
+  })
 
   // Other routes...
 
