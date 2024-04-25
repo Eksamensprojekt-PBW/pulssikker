@@ -5,10 +5,6 @@ const middlewares = require("../middleware");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
-//---------------- udskift med database istede ---------------------
-const { users } = require('../app');
-
-
 module.exports = (client) => {
   const router = express.Router();
   const db = client.db("FirstAidCourses");
@@ -62,15 +58,17 @@ module.exports = (client) => {
   });
 
   router.post("/registrer", async (req, res) => {
+    const hashedUsername = await bcrypt.hash(req.body.password, 10);
+    const hashedEmail = await bcrypt.hash(req.body.email, 10);
+    const hashedPassword = await bcrypt.hash(req.body.username, 10);
     try {
       //---------------- udskift med database entry istede ---------------------
       // add database logic here to add user to database
-
       users.push({
         id: Date.now().toString(),
-        name: hashedUsername = await bcrypt.hash(req.body.password, 10),
-        email: hashedEmail = await bcrypt.hash(req.body.email, 10),
-        password: hashedPassword = await bcrypt.hash(req.body.username, 10)
+        name: hashedUsername,
+        email: hashedEmail,
+        password: hashedPassword
       })
     } catch (error) {
       res.redirect("/registrer")
