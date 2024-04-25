@@ -47,11 +47,13 @@ module.exports = (client) => {
     res.render("om");
   });
 
+  /*
   router.get("/login", passport.authenticate("local", {
     successRedirect: "/admin",
     failureRedirect: "/login",
     failureFlash: true
   }));
+  */
 
   router.get("/registrer", (req, res) => {
     res.render("registrer");
