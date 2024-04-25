@@ -4,22 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PulsSikker</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-
-    <nav>
-        <div>
-            <a href="/"><h1>PulsSikker</h1></a>
-            <p>Førstehjælps kurser</p>
+    <%- include('header')%>
+    <section class="hero">
+        <div class="heroContent">
+            <h1>Velkommen til PulsSikker</h1>
+            <p>Profesionnelle førstehjælpskurser til virksomheder og private.</p>
+            <a class="CTA" href="#courseInfo">Se kurser</a>
         </div>
-        <ul>
-            <li><a href="/">PulsSikker</a></li>
-            <li><a href="/erhverv">erhverv</a></li>
-            <li><a href="/privat">privat</a></li>
-            <li><a href="/om">om os</a></li>
-            <li><a href="/kontakt">kontakt</a></li>
-        </ul>
-    </nav>
+    </section>
+    <section class="banner">
+        <div class="container">
+            <img src="/img/pen-ruler-solid.svg" alt="">
+            <p>Skræddersyede Løsninger</p>
+        </div>
+        <div class="container">
+            <img src="/img/chalkboard-user-solid.svg" alt="">
+            <p>Erfaren Instruktører</p>
+        </div>
+    </section>
+    <section id="courseInfo" class="info">
+    <h2>Skræddersyede kurser i førstehjælp</h2>
+    <p>Med fokus på praktisk træning og individuel tilgang tilbyder vi et bredt udvalg af kurser, herunder basal førstehjælp, førstehjælp ved hjertestop og specialiserede kurser.</p>
+    </section>
+    <section id="courses">
+        <div class="container course-card">
+            <h3>Erhverv</h3>
+            <p>Styrk dine medarbejderes evner til at håndtere nødsituationer effektivt og sikkert.</p>
+            <a class="CTA" href="/erhverv">Se kurser</a>
+        </div>
+        <div class="container course-card">
+            <h3>Privat</h3>
+            <p>Få viden og praktisk træning i førstehjælp, specifikt rettet mod håndtering af trafikrelaterede nødsituationer. </p>
+            <a class="CTA" href="/privat">Se kurser</a>
+        </div>
+    </section>
+    <section class="info">
+    <h2>Hvem er vi?</h2>
+    <p>Vi brænder for førstehjælp og er her for at sikre, at både du og dine medarbejdere er rustet til at håndtere nødsituationer med tillid og kompetence. Læs mere om os, vores erfaring og mission ved at trykke på knappen.</p>
+    <a class="CTA-secondary" href="/om">Om os</a>   
+    </section>
     
+    <%- include('footer')%>
 </body>
 </html>

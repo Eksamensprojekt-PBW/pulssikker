@@ -30,6 +30,7 @@ module.exports = { users };
 const uri = process.env.MONGO_URI;
 
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(flash());
 app.use(session({
@@ -52,22 +53,24 @@ const client = new MongoClient(uri, {
   },
 });
 
-const helmetConfig = {
-  contentSecurityPolicy: {
-    useDefaults: true,
-    directives: {
-      "script-src": ["'self'", "example.com"],
-      "style-src": null, // Disable stylesheets
-    },
-  },
-  frameguard: {
-    action: "deny",
-  },
-};
+// const helmetConfig = {
+//   contentSecurityPolicy: {
+//     useDefaults: true,
+//     directives: {
+//       "script-src": ["'self'"],
+//       "style-src": ["'self'"], 
+//       "img-src": ["'self'"],
+//     },
+//   },
+//   frameguard: {
+//     action: "deny",
+//   },
+// };
 
-app.use(helmet(helmetConfig));
+// app.use(helmet(helmetConfig));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(
   session({
@@ -86,8 +89,10 @@ async function run() {
     const pingResult = await client.db("admin").command({ ping: 1 });
     console.log("Successfully connected to MongoDB", pingResult);
 
+
     // Here you can pass the client or specific collections to your routes
     app.use("/", courseRoutes(client));
+
 
     // Routes can be here if they don't need database access
     /*app.get("/", (req, res) => {
@@ -101,7 +106,7 @@ async function run() {
 
     // Start the server
     app.listen(port, () => {
-      console.log(`Server is running on PORT ${port}`);
+      console.log(`Server is running on http://localhost:${port}`);
     });
   } catch (error) {
     console.error("Failed to connect to MongoDB", error);

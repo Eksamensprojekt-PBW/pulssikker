@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurser</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Kurser</h1>
+<div>
+    <a href="/add-course">
+        <img src="/img/circle-plus-solid.svg" alt="">
+    <p>Tilføj kursus</p>
+    </a>
+</div>
+<% courses.forEach(course => { %>
+    <div>
+        <p><%= course.title %></p>
+        <a href="/edit-course/<%= course._id %>"><img src="/img/pen-to-square-solid.svg" alt=""></a>
+    </div>
+<% }) %>
+</body>
+</html>

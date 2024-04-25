@@ -1,0 +1,58 @@
+<form id="contactForm" action="GET">
+    <label for="name">Navn</label>
+    <input type="text" name="name" id="name">
+    <p id="nameCheck" style="display: none; color: red;">Navnet må ikke indeholde specielle karakterer.</p>
+    <label for="email">Email*</label>
+    <input type="text" name="email" id="email" required="true">
+    <p id="emailCheck" style="display: none; color: red;">Ugyldig email format.</p>
+    <label for="phone">Tlf.</label>
+    <input type="text" name="phone" id="phone">
+    <p id="phoneCheck" style="display: none; color: red;">Indtast venligst et gyldigt nummer uden +45.</p>
+    <label for="message">Besked</label>
+    <textarea name="message" id="message" cols="30" rows="10" required="true"></textarea>
+    <button type="submit">Send</button>
+</form>
+
+<script>
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    const messageInput = document.getElementById('message');
+    const nameCheck = document.getElementById('nameCheck');
+    const emailCheck = document.getElementById('emailCheck');
+    const phoneCheck = document.getElementById('phoneCheck');
+
+    nameInput.addEventListener('input', validateName);
+    emailInput.addEventListener('input', validateEmail);
+    phoneInput.addEventListener('input', validatePhone);
+
+    function validateName() {
+        const name = nameInput.value.trim();
+        const nameRegex = /^[a-zA-Z\s]+$/;
+        if (!nameRegex.test(name) || name.length < 2) {
+            nameCheck.style.display = 'block';
+        } else {
+            nameCheck.style.display = 'none';
+        }
+    }
+
+    function validateEmail() {
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            emailCheck.style.display = 'block';
+        } else {
+            emailCheck.style.display = 'none';
+        }
+    }
+
+    function validatePhone() {
+        const phone = phoneInput.value.trim();
+        const phoneRegex = /^[1-9]\d{7}$/;
+        if (!phoneRegex.test(phone)) {
+            phoneCheck.style.display = 'block';
+        } else {
+            phoneCheck.style.display = 'none';
+        }
+    }
+</script>

@@ -1,0 +1,109 @@
+:root {
+    --primary: #ff6236;
+    --secondary: #132235;
+    --text: #1b232e;
+    --overlay: #e4e4e4;
+    --bg: #eeeeee;
+  }
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+img {
+    width: 2rem;
+}
+a {
+  text-decoration: none;
+}
+header {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+}
+nav {
+  width: 100%;
+}
+ul {
+  display: flex;
+    justify-content: center;
+    list-style-type: none;
+    gap: 10%;
+}
+ul a {
+  color: var(--text);
+}
+ul a:hover {
+  color: var(--primary);
+}
+h1,h2,h3,h4,h5,h6 {
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+p {
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+
+.CTA {
+  background-color: var(--primary);
+  border: none;
+  padding: 1rem;
+  text-transform: uppercase;
+  color: var(--bg);
+}
+.CTA-secondary {
+  background-color: var(--secondary);
+  color: var(--bg);
+
+  border: none;
+  padding: 1rem;
+  text-transform: uppercase;
+}
+.heroContent {
+  margin: 5rem 0 5rem 5rem;
+}
+.banner {
+  background-color: #e4e4e4;
+  padding: 2rem 0 2rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 20%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#courses {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+}
+.course-card {
+  background-color: var(--overlay);
+    width: 30%;
+    text-align: center;
+    padding: 2rem;
+}
+footer {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--secondary);
+  padding: 4rem 0 4rem 0;
+}
+footer h3, footer p {
+  color: var(--bg);
+}
+footer a {
+  color: var(--primary);
+}
+.info {
+  text-align: center;
+  margin: 5rem 0 5rem 0;
+  padding: 0 25% 0 25%;
+}
+.info p {
+  margin-bottom: 3rem;
+}

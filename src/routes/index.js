@@ -14,7 +14,7 @@ module.exports = (client) => {
   const db = client.db("FirstAidCourses");
   const privateCoursesCollection = db.collection("privateCourses");
   const businessCoursesCollection = db.collection("businessCourses");
-
+  
   // Serve initial pages
   router.get("/", (req, res) => {
     res.render("index");
@@ -24,7 +24,7 @@ module.exports = (client) => {
   router.get("/erhverv", async (req, res) => {
     try {
       const courses = await businessCoursesCollection.find({}).toArray();
-      res.render("erhverv", { courses }); // Assuming you have an EJS template named "erhverv" that expects 'courses' data
+      res.render("erhverv", { courses }); 
     } catch (error) {
       console.error("Failed to fetch business courses:", error);
       res.status(500).render("error", { error: "Internal Server Error" }); // You can have a generic error.ejs template
@@ -35,7 +35,7 @@ module.exports = (client) => {
   router.get("/privat", async (req, res) => {
     try {
       const courses = await privateCoursesCollection.find({}).toArray();
-      res.render("privat", { courses }); // Assuming you have an EJS template named "privat" that expects 'courses' data
+      res.render("privat", { courses });
     } catch (error) {
       console.error("Failed to fetch private courses:", error);
       res.status(500).render("error", { error: "Internal Server Error" });
@@ -49,6 +49,18 @@ module.exports = (client) => {
 
   router.get("/om", (req, res) => {
     res.render("om");
+  });
+  router.get("/dashboard", async (req, res) => {
+    try {
+    const businessCourses = await businessCoursesCollection.find({}).toArray();
+    const privateCourses = await privateCoursesCollection.find({}).toArray();
+    const courses = [...businessCourses, ...privateCourses];
+      res.render("dashboard", {courses});
+    } catch (error){
+      console.error("Failed to fetch courses: ", error);
+      res.status(500).render("error", { error: "Internal Server Error" });
+    }
+      
   });
 
   router.get("/login", passport.authenticate("local", {

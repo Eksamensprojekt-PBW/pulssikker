@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    
+</head>
+<body>
+    <h1><%= title %></h1>
+    <form action="POST">
+        <label for="name">Kursus Navn</label>
+        <% if (title === 'tilføj kursus') { %>
+            <input type="text" id="name" placeholder="">
+        <% } else if (title === 'rediger kursus' && course) { %>
+            <input type="text" id="name" value="<%= course.name %>">
+            <!-- Include hidden input field to store course id -->
+            <input type="hidden" id="courseId" name="courseId" value="<%= course._id %>">
+        <% } %>
+        <label>Kursus Type</label>
+        <label for="erhvervType">Erhverv</label>
+        <input type="radio" name="erhvervType" id="erhvervRadio" <% if (title === 'rediger kursus' && course && course.target === 'Business') { %> checked <% } %>>
+        <label for="privatType">Privat</label>
+        <input type="radio" name="privatType" id="privatRadio" <% if (title === 'rediger kursus' && course && course.target === 'Private') { %> checked <% } %>>
+        <label for="duration">Varighed (i timer)</label>
+        <input type="number" name="duration" id="duration" <% if (title === 'rediger kursus' && course) { %> value="<%= course.duration %>" <% } %>>
+        <label for="price">Pris (i DKK)</label>
+        <input type="number" name="price" id="price" <% if (title === 'rediger kursus' && course) { %> value="<%= course.price %>" <% } %>>
+        <label for="description">Beskrivelse</label>
+        <input type="text" name="description" id="description" <% if (title === 'rediger kursus' && course) { %> value="<%= course.description %>" <% } %>>
+    </form>
+</body>
+</html>
