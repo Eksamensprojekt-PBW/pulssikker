@@ -27,4 +27,4 @@ function initialize(passport, getUserByUsername, getUserById) {
     })
 }
 
-module.export = initialize;
+module.exports = initialize;

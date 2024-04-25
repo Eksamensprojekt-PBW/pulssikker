@@ -12,19 +12,19 @@ const passport = require("passport");
 const flash = require("express-flash");
 const { v4: uuidv4 } = require('uuid');
 
+/*
 const initializePassport = require("./passport-config");
 initializePassport(
   passport,
   username => users.find(user => user.username === username),
   id => users.find(user => user.id === id)
 );
+*/
 
 // Variables
 const port = 3000;
 const app = express();
 const users = [];
-
-module.exports = { users };
 
 // MongoDB Client Connect
 const uri = process.env.MONGO_URI;
@@ -32,14 +32,17 @@ const uri = process.env.MONGO_URI;
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: false }));
+/*
 app.use(flash());
 app.use(session({
+  //move uuidv4 to a scretkey value, and move it to .env enviroment
   secret: uuidv4(),
   resave: false,
   saveUninitialized: false,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
+*/
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
