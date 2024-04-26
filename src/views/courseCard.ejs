@@ -1,37 +1,36 @@
 <div>
-    <!--fix this later to be the picture from the database-->
-    <div><img src="" alt=""></div>
-    <div>
-        <p><%= course.title %></p>
-        <p><%= course.duration %> • <%= course.price %> <%= course.currency %><%= course.price_excl_vat ? ' (excl. VAT)' : '' %></p>
-        <p><%= course.description %></p>
-        <button
-          onclick="document.getElementById('orderForm<%= course._id %>').style.display='block'">Order Course
-        </button>
-        <div id="orderForm<%= course._id %>" style="display: none">
-          <form action="/order-course" method="post">
-            <input type="hidden" name="courseId" value="<%= course._id %>" />
-            <input type="text" name="name" placeholder="Your Name" required />
+  <div><img src="" alt=""></div>
+  <div>
+      <p><%= course.title %></p>
+      <p><%= course.duration %> • <%= course.price %> <%= course.currency %><%= course.price_excl_vat ? ' (excl. VAT)' : '' %></p>
+      <p><%= course.description %></p>
+      <button
+        onclick="document.getElementById('orderForm<%= course._id %>').style.display='block'">Order Course
+      </button>
+      <div id="orderForm<%= course._id %>" style="display: none">
+        <form action="/order-course" method="post">
+          <input type="hidden" name="courseId" value="<%= course._id %>" />
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+          />
+          <% if (course.target === 'Business') { %>
             <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              required
-            />
-            <% if (course.target === 'Business') { %>
-              <input
-              type="text"
-              name="company"
-              placeholder="Company Name"
-              required
-            />
-          <% }
-            <textarea
-              name="additionalInfo"
-              placeholder="Additional Information"
-            ></textarea>
-            <button type="submit">Bestil kursus</button>
-          </form>
-        </div>
-    </div>
+            type="text"
+            name="company"
+            placeholder="Company Name"
+            required
+          />
+        <% } %>
+          <textarea
+            name="additionalInfo"
+            placeholder="Additional Information"
+          ></textarea>
+          <button type="submit">Bestil kursus</button>
+        </form>
+      </div>
+  </div>
 </div>
