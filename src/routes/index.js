@@ -4,23 +4,27 @@ const middlewares = require("../middleware");
 // import bcrypt
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const multer = require("multer");
 
-module.exports = (client) => {
+module.exports = (db) => {
   const router = express.Router();
-  const db = client.db("FirstAidCourses");
   const privateCoursesCollection = db.collection("privateCourses");
   const businessCoursesCollection = db.collection("businessCourses");
-  
+
   // Serve initial pages
   router.get("/", (req, res) => {
     res.render("index");
+  });
+
+  router.get("/upload", (req, res) => {
+    res.render("upload");
   });
 
   // Fetch and render business courses data directly
   router.get("/erhverv", async (req, res) => {
     try {
       const courses = await businessCoursesCollection.find({}).toArray();
-      res.render("erhverv", { courses }); 
+      res.render("erhverv", { courses });
     } catch (error) {
       console.error("Failed to fetch business courses:", error);
       res.status(500).render("error", { error: "Internal Server Error" }); // You can have a generic error.ejs template
@@ -48,15 +52,16 @@ module.exports = (client) => {
   });
   router.get("/dashboard", async (req, res) => {
     try {
-    const businessCourses = await businessCoursesCollection.find({}).toArray();
-    const privateCourses = await privateCoursesCollection.find({}).toArray();
-    const courses = [...businessCourses, ...privateCourses];
-      res.render("dashboard", {courses});
-    } catch (error){
+      const businessCourses = await businessCoursesCollection
+        .find({})
+        .toArray();
+      const privateCourses = await privateCoursesCollection.find({}).toArray();
+      const courses = [...businessCourses, ...privateCourses];
+      res.render("dashboard", { courses });
+    } catch (error) {
       console.error("Failed to fetch courses: ", error);
       res.status(500).render("error", { error: "Internal Server Error" });
     }
-      
   });
 
   /*
@@ -82,13 +87,13 @@ module.exports = (client) => {
         id: Date.now().toString(),
         name: hashedUsername,
         email: hashedEmail,
-        password: hashedPassword
-      })
+        password: hashedPassword,
+      });
     } catch (error) {
-      res.redirect("/registrer")
+      res.redirect("/registrer");
     }
     console.log(users);
-  })
+  });
 
   // Other routes...
 

@@ -15,21 +15,21 @@ module.exports = (db) => {
 
   // Route for adding a course
   router.get('/add-course', (req, res) => {
-    console.log("Adding a course"); // Add this line
+    console.log("Adding a course"); 
     res.render('courseEdit', { title: 'tilføj kursus' });
   });
 
   // Route for editing a course
   router.get('/edit-course/:id', async (req, res) => {
     try {
-      console.log("Editing a course"); // Add this line
+      console.log("Editing a course"); 
       const courseId = req.params.id;
-      console.log("Course ID:", courseId); // Add this line
+      console.log("Course ID:", courseId); 
       const course = await db.collection('courses').findOne({ _id: ObjectId(courseId) });
-      console.log("Course:", course); // Add this line
+      console.log("Course:", course); 
       res.render('courseEdit', { title: 'rediger kursus', course: course });
     } catch (error) {
-      console.error("Error editing course:", error); // Add this line
+      console.error("Error editing course:", error); 
       res.status(500).send('Internal Server Error');
     }
   });
