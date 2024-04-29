@@ -8,10 +8,8 @@ const passport = require("passport");
 //const collection = require("../config");
 //const bodyParser = require('body-parser');
 
-const userController = require("../controllers/usercontroller");
+//const userController = require("../controllers/usercontroller");
 const { ObjectId } = require('mongodb');
-const Swal = require('sweetalert2');
-
 
 module.exports = (client) => {
   const router = express.Router();
@@ -198,52 +196,41 @@ router.get('/delete-course/:id', async (req, res) => {
     failureFlash: true
   }));
   */
+ router.get("/registrer", (req, res) => {
+   res.render("registrer");
+ });
+
+ 
 
   router.get("/login", (req, res) => {
     res.render("login");
   });
 
-  router.get("/registrer", (req, res) => {
-    res.render("registrer");
-  });
 
 
-  router.post("/registrer", userController.createUser);
+// Route for adding a user
+router.post('/registrer', async (req, res) => {
+  try {
+    console.log("Adding a user");
+    // Extract user data from the request body
+    const { email, username, password} = req.body;
 
-  /*
-  // Register user
-  router.post("/registrer", async (req, res) => {
-    const data = {
-      email: req.body.email,
-      name: req.body.username,
-      password: req.body.password
-    }
+    const hashedEmail = await bcrypt.hash(email, 10);
+    const hashedUsername = await bcrypt.hash(username, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userdata = await collection.insertMany(data);
-    console.log(userdata);
-    
-  });
-  */
+    // Insert the course data into the appropriate collection
+    await accountsCollection.insertOne({ email: hashedEmail, username: hashedUsername, password: hashedPassword});
+    console.log("User successfully added.")
 
+  // Redirect based on Swal result (optional)
+  res.redirect('/login');
   
-  router.post("/registrer", async (req, res) => {
-    const hashedUsername = await bcrypt.hash(req.body.password, 10);
-    const hashedEmail = await bcrypt.hash(req.body.email, 10);
-    const hashedPassword = await bcrypt.hash(req.body.username, 10);
-    try {
-      //---------------- udskift med database entry istede ---------------------
-      // add database logic here to add user to database
-      users.push({
-        id: Date.now().toString(),
-        name: hashedUsername,
-        email: hashedEmail,
-        password: hashedPassword
-      })
-    } catch (error) {
-      res.redirect("/registrer")
-    }
-    console.log(users);
-  })
+  } catch (error) {
+    console.error("Error adding user:", error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
   return router;
 };
