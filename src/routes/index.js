@@ -223,9 +223,9 @@ router.get('/delete-course/:id', async (req, res) => {
     console.log(userdata);
     
   });
-
   */
 
+  
   router.post("/registrer", async (req, res) => {
     const hashedUsername = await bcrypt.hash(req.body.password, 10);
     const hashedEmail = await bcrypt.hash(req.body.email, 10);
