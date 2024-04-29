@@ -12,8 +12,7 @@ const flash = require("express-flash");
 const { v4: uuidv4 } = require("uuid");
 const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
-const uploadRoute = require('./routes/upload');
-
+const uploadRoute = require("./routes/upload");
 
 /*
 const initializePassport = require("./passport-config");
@@ -37,7 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: false }));
-app.use('/upload', uploadRoute);
+app.use("/upload", uploadRoute);
 
 /*
 app.use(flash());
@@ -110,7 +109,7 @@ async function run() {
     const db = client.db("FirstAidCourses");
 
     // Pass `db` into the routes
-    app.use("/", courseRoutes(db));
+    app.use("/", courseRoutes(client));
     app.use("/", orderRoutes(db));
 
     // Routes can be here if they don't need database access
