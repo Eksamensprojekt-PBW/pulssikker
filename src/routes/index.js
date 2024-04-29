@@ -259,20 +259,15 @@ router.post('/registrer', async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ error: 'User already exists' });
     }
-
     // Generate a salt
     const salt = await bcrypt.genSalt(10);
-
     // Hash the password using bcrypt with the generated salt
     const hashedPassword = await bcrypt.hash(password, salt);
-
     // Insert the course data into the appropriate collection
     await accountsCollection.insertOne({ email: email, username: username, password: hashedPassword});
     console.log("User successfully added.")
-
   // Redirect based on Swal result (optional)
   res.redirect('/login');
-  
   } catch (error) {
     console.error("Error adding user:", error);
     res.status(500).send('Internal Server Error');
