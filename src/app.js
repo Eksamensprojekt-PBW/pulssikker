@@ -24,14 +24,16 @@ initializePassport(
 // Variables
 const port = 3000;
 const app = express();
-const users = [];
 
 // MongoDB Client Connect
 const uri = process.env.MONGO_URI;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: false }));
+
 /*
 app.use(flash());
 app.use(session({

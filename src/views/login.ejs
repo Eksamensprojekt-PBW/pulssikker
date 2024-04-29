@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login - admin</title>
+    <title>Login</title>
     <meta charset="utf-8" />
 </head>
 <body>
-    <% if (messages.error) { %>
-        <%= messages.error  %>
-    <% } %>
-    <form id="login-form" method="POST">
+    <h1>Login</h1>
+    <form action="/login" method="POST">
         <div>
-            <label for="username">Brugernavn:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="name">Brugernavn:</label>
+            <input type="text" id="name" name="username" placeholder="Intast brugernavn" autocomplete="off" required>
         </div>
         <div>
-            <label for="password">Adgangskode:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="password" required>
         </div>
         <button type="submit">Login</button>
     </form>

@@ -4,12 +4,19 @@ const middlewares = require("../middleware");
 // import bcrypt
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+// Import collection
+const collection = require("../config");
+const bodyParser = require('body-parser');
+
+const userController = require("../controllers/usercontroller");
 
 module.exports = (client) => {
   const router = express.Router();
-  const db = client.db("FirstAidCourses");
-  const privateCoursesCollection = db.collection("privateCourses");
-  const businessCoursesCollection = db.collection("businessCourses");
+  const dbAccounts = client.db("Accounts");
+  const dbCourses = client.db("FirstAidCourses");
+  const privateCoursesCollection = dbCourses.collection("privateCourses");
+  const businessCoursesCollection = dbCourses.collection("businessCourses");
+  const accountsCollection = dbAccounts.collection("users");
   
   // Serve initial pages
   router.get("/", (req, res) => {
@@ -67,9 +74,32 @@ module.exports = (client) => {
   }));
   */
 
+  router.get("/login", (req, res) => {
+    res.render("login");
+  });
+
   router.get("/registrer", (req, res) => {
     res.render("registrer");
   });
+
+
+  router.post("/registrer", userController.createUser);
+
+  /*
+  // Register user
+  router.post("/registrer", async (req, res) => {
+    const data = {
+      email: req.body.email,
+      name: req.body.username,
+      password: req.body.password
+    }
+
+    const userdata = await collection.insertMany(data);
+    console.log(userdata);
+    
+  });
+
+  */
 
   router.post("/registrer", async (req, res) => {
     const hashedUsername = await bcrypt.hash(req.body.password, 10);
