@@ -19,20 +19,26 @@ module.exports = (db) => {
     res.render('courseEdit', { title: 'tilføj kursus' });
   });
 
-  // Route for editing a course
-  router.get('/edit-course/:id', async (req, res) => {
-    try {
-      console.log("Editing a course"); // Add this line
-      const courseId = req.params.id;
-      console.log("Course ID:", courseId); // Add this line
-      const course = await db.collection('courses').findOne({ _id: ObjectId(courseId) });
-      console.log("Course:", course); // Add this line
-      res.render('courseEdit', { title: 'rediger kursus', course: course });
-    } catch (error) {
-      console.error("Error editing course:", error); // Add this line
-      res.status(500).send('Internal Server Error');
+   // Route for editing a course (GET request)
+router.get('/edit-course', async (req, res) => {
+  try {
+    console.log("Editing a course");
+    const courseId = req.params.id;
+    console.log("Course ID:", courseId);
+    const course = await db.collection('courses').findOne({ _id: ObjectId(courseId) });
+
+    // Check if course exists
+    if (!course) {
+      return res.status(404).send('Course not found');
     }
-  });
+
+    res.render('courseEdit', { title: 'rediger kursus', course: course });
+  } catch (error) {
+    console.error("Error editing course:", error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
   return router;
 };
+

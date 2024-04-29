@@ -23,6 +23,7 @@ header {
   padding: 1rem;
 }
 nav {
+  display: block;
   width: 100%;
 }
 ul {
@@ -106,4 +107,32 @@ footer a {
 }
 .info p {
   margin-bottom: 3rem;
+}
+.hamburger-menu-icon {
+  display: none;
+}
+@media only screen and (max-width: 768px) {
+  /* Adjustments for tablet screens and smaller */
+  nav {
+    display: none; /* Hide the nav element by default */
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem; /* Add some space between logo and nav */
+  }
+
+  ul {
+    flex-direction: column; /* Display menu items vertically */
+    gap: 1rem; /* Add some space between menu items */
+  }
+
+  .hamburger-menu-icon {
+    display: block; /* Display the hamburger menu icon */
+    width: 30px; /* Adjust the width of the icon */
+    height: auto; /* Allow the height to adjust proportionally */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+
+  .active nav {
+    display: block; /* Display the nav when active */
+  }
 }

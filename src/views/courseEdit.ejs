@@ -8,12 +8,12 @@
 </head>
 <body>
     <h1><%= title %></h1>
-    <form action="POST">
-        <label for="name">Kursus Navn</label>
+    <form action="<%= title === 'tilføj kursus' ? '/add-course' : '/edit-course/' + course._id %>" method="post">
+        <label for="title">Kursus Titel</label>
         <% if (title === 'tilføj kursus') { %>
-            <input type="text" id="name" placeholder="">
+            <input type="text" name="title" id="title" placeholder="">
         <% } else if (title === 'rediger kursus' && course) { %>
-            <input type="text" id="name" value="<%= course.name %>">
+            <input type="text" name="title" id="title" value="<%= course.title %>">
             <!-- Include hidden input field to store course id -->
             <input type="hidden" id="courseId" name="courseId" value="<%= course._id %>">
         <% } %>
@@ -28,6 +28,8 @@
         <input type="number" name="price" id="price" <% if (title === 'rediger kursus' && course) { %> value="<%= course.price %>" <% } %>>
         <label for="description">Beskrivelse</label>
         <input type="text" name="description" id="description" <% if (title === 'rediger kursus' && course) { %> value="<%= course.description %>" <% } %>>
+        <button type="submit">Gem</button>
+        
     </form>
 </body>
 </html>
