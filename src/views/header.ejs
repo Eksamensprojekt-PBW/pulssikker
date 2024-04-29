@@ -1,5 +1,6 @@
 <header>
     <a href="/"><img src="/img/logo_black.svg" alt=""></a> 
+    <img class="hamburger-menu-icon" src="/img/bars-solid.svg" alt="Menu" onclick="toggleMenu()">
     <nav>
         <ul>
             <li><a href="/erhverv">Erhverv</a></li>
@@ -9,3 +10,31 @@
         </ul>
     </nav>
 </header>
+<script>
+  function toggleMenu() {
+  const nav = document.querySelector('nav');
+  nav.classList.toggle('active');
+
+  // Check if the menu is active (has the 'active' class)
+  if (nav.classList.contains('active')) {
+    nav.style.display = 'block'; // Force display block when active
+  } else {
+    // Check if the menu is currently visible before hiding
+    if (nav.style.display === 'block') {
+      nav.style.display = 'none'; // Hide the menu only if it's visible
+    }
+  }
+
+  // Additionally, check screen width on every click and adjust display
+  const isLargeScreen = window.innerWidth > 768;
+  if (isLargeScreen) {
+    nav.classList.remove('active');
+    nav.style.display = 'none'; // Hide the menu on large screens (even if clicked)
+  }
+  
+  window.addEventListener('resize', () => {
+    // ... existing resize event listener code ...
+  });
+}
+
+</script>

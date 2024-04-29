@@ -27,10 +27,12 @@ initializePassport(
 // Variables
 const port = 3000;
 const app = express();
-const users = [];
 
 // MongoDB Client Connect
 const uri = process.env.MONGO_URI;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -87,6 +89,12 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(
   session({
+    name: "MySessionID",
+    cookie: {
+      httpOnly: false,
+      maxAge: 3600000, // gemmer session i 1 time
+      // secure: true //Only works with https not localhost set to true when put up
+    },
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: true,

@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>signup - admin</title>
+    <title>Registrer</title>
     <meta charset="utf-8" />
 </head>
 <body>
-    <form id="registrer-form" method="POST">
+    <h1>Registrer</h1>
+    <form action="/registrer" method="POST">
         <div>
             <label for="email">Email:</label>
-            <input type="text" id="createEmail" name="email" required>
+            <input type="text" name="email" placeholder="Intast Email" autocomplete="off" required>
         </div>
         <div>
-            <label for="username">Brugernavn:</label>
-            <input type="text" id="createUsername" name="username" required>
+            <label for="name">Brugernavn:</label>
+            <input type="text" name="username" placeholder="Intast Brugernavn" required>
         </div>
         <div>
             <label for="password">Adgangskode:</label>
-            <input type="password" id="createPassword" name="password" required>
+            <input type="password" name="password" placeholder="Intast Password" required>
         </div>
         <div>
-            <label for="password">Gentag Adgangskode:</label>
-            <input type="password" id="repeatPassword" name="password" required>
+            <label for="repeatPassword">Gentag Adgangskode:</label>
+            <input type="password" name="repeatPassword" placeholder="Gentag Password" required>
         </div>
         <button type="submit">Registrer</button>
     </form>
