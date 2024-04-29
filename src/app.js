@@ -79,6 +79,12 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(
   session({
+    name: "MySessionID",
+    cookie: {
+      httpOnly: false,
+      maxAge: 3600000, // gemmer session i 1 time
+      // secure: true //Only works with https not localhost set to true when put up
+    },
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: true,

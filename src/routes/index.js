@@ -4,12 +4,17 @@ const middlewares = require("../middleware");
 // import bcrypt
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+//const { hashCredentialsMiddleware, authMiddleware } = require("../middleware");
 // Import collection
 //const collection = require("../config");
 //const bodyParser = require('body-parser');
 
 //const userController = require("../controllers/usercontroller");
 const { ObjectId } = require('mongodb');
+
+
+// Secret key for JWT
+const secretKey = 'your_secret_key';
 
 module.exports = (client) => {
   const router = express.Router();
@@ -189,24 +194,58 @@ router.get('/delete-course/:id', async (req, res) => {
   }
 });
 
-  /*
-  router.get("/login", passport.authenticate("local", {
-    successRedirect: "/admin",
-    failureRedirect: "/login",
-    failureFlash: true
-  }));
-  */
- router.get("/registrer", (req, res) => {
-   res.render("registrer");
- });
+
 
  
+// Route for login view
+router.get("/login", (req, res) => {
+   res.render("login");
+});
 
-  router.get("/login", (req, res) => {
-    res.render("login");
-  });
+router.post("/login", async (req, res) => {
+  try {
+    console.log("Trying to login user");
+    
+    // Extract user data from the request body
+    const {username, password} = req.body;
+    
+    console.log("checking username when logging in", username);
+
+    // Check if user exists
+    const user = await accountsCollection.findOne({ username });
+
+    if (!user) {
+      // If user not fount, return a 401 Unauthorized response
+      return res.status(401).json({ error: 'User not found' });
+    }
+
+    // Compare the hashed password with the stored hashed password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      // If passwords don't match, return a 401 Unauthorized response
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    // If the credentials are valid, generate a JWT token
+    //const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' }); // Token expires in 1 hour
+
+    console.log("passwords matched?");
+
+    res.redirect('/dashboard');
+
+  } catch (error) {
+    console.error("Error loging in:", error);
+    res.status(500).send('Internal Server Error');
+  }
+})
 
 
+
+// Route for registrer view
+router.get("/registrer", (req, res) => {
+  res.render("registrer");
+});
 
 // Route for adding a user
 router.post('/registrer', async (req, res) => {
@@ -215,12 +254,20 @@ router.post('/registrer', async (req, res) => {
     // Extract user data from the request body
     const { email, username, password} = req.body;
 
-    const hashedEmail = await bcrypt.hash(email, 10);
-    const hashedUsername = await bcrypt.hash(username, 10);
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Check if user already exists
+    const existingUser = await accountsCollection.findOne({ username });
+        if (existingUser) {
+            return res.status(400).json({ error: 'User already exists' });
+    }
+
+    // Generate a salt
+    const salt = await bcrypt.genSalt(10);
+
+    // Hash the password using bcrypt with the generated salt
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // Insert the course data into the appropriate collection
-    await accountsCollection.insertOne({ email: hashedEmail, username: hashedUsername, password: hashedPassword});
+    await accountsCollection.insertOne({ email: email, username: username, password: hashedPassword});
     console.log("User successfully added.")
 
   // Redirect based on Swal result (optional)
