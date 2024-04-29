@@ -196,7 +196,9 @@ router.get('/delete-course/:id', async (req, res) => {
 
 
 
- 
+
+
+// -------------- | Routes for login | --------------
 // Route for login view
 router.get("/login", (req, res) => {
    res.render("login");
@@ -204,36 +206,26 @@ router.get("/login", (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    console.log("Trying to login user");
-    
+    console.log("Trying to login user"); // remove this latter?
     // Extract user data from the request body
     const {username, password} = req.body;
-    
-    console.log("checking username when logging in", username);
-
-    // Check if user exists
+        // Check if user exists
     const user = await accountsCollection.findOne({ username });
-
     if (!user) {
       // If user not fount, return a 401 Unauthorized response
       return res.status(401).json({ error: 'User not found' });
     }
-
     // Compare the hashed password with the stored hashed password
     const passwordMatch = await bcrypt.compare(password, user.password);
-
     if (!passwordMatch) {
       // If passwords don't match, return a 401 Unauthorized response
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
     // If the credentials are valid, generate a JWT token
     //const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' }); // Token expires in 1 hour
 
-    console.log("passwords matched?");
-
+    console.log("succesfull login");
     res.redirect('/dashboard');
-
   } catch (error) {
     console.error("Error loging in:", error);
     res.status(500).send('Internal Server Error');
@@ -242,11 +234,12 @@ router.post("/login", async (req, res) => {
 
 
 
-// Route for registrer view
+
+
+// -------------- | Routes for registrer | --------------
 router.get("/registrer", (req, res) => {
   res.render("registrer");
 });
-
 // Route for adding a user
 router.post('/registrer', async (req, res) => {
   try {
