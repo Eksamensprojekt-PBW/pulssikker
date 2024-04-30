@@ -17,7 +17,7 @@ const { ObjectId } = require('mongodb');
 const secretKey = 'your_secret_key';
 const multer = require("multer");
 
-module.exports = (db) => {
+module.exports = (client) => {
   const router = express.Router();
   const dbAccounts = client.db("Accounts");
   const dbCourses = client.db("FirstAidCourses");

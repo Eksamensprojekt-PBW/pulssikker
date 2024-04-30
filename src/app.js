@@ -110,7 +110,7 @@ async function run() {
     const db = client.db("FirstAidCourses");
 
     // Pass `db` into the routes
-    app.use("/", courseRoutes(db));
+    app.use("/", courseRoutes(client));
     app.use("/", orderRoutes(db));
 
     // Routes can be here if they don't need database access
