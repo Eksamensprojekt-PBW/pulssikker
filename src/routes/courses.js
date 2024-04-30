@@ -15,7 +15,7 @@ module.exports = (db) => {
 
   // Route for adding a course
   router.get('/add-course', (req, res) => {
-    console.log("Adding a course"); // Add this line
+    console.log("Adding a course"); 
     res.render('courseEdit', { title: 'tilføj kursus' });
   });
 

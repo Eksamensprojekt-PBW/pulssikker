@@ -15,8 +15,9 @@ const { ObjectId } = require('mongodb');
 
 // Secret key for JWT
 const secretKey = 'your_secret_key';
+const multer = require("multer");
 
-module.exports = (client) => {
+module.exports = (db) => {
   const router = express.Router();
   const dbAccounts = client.db("Accounts");
   const dbCourses = client.db("FirstAidCourses");
@@ -29,11 +30,15 @@ module.exports = (client) => {
     res.render("index");
   });
 
+  router.get("/upload", (req, res) => {
+    res.render("upload");
+  });
+
   // Fetch and render business courses data directly
   router.get("/erhverv", async (req, res) => {
     try {
       const courses = await businessCoursesCollection.find({}).toArray();
-      res.render("erhverv", { courses }); 
+      res.render("erhverv", { courses });
     } catch (error) {
       console.error("Failed to fetch business courses:", error);
       res.status(500).render("error", { error: "Internal Server Error" }); // You can have a generic error.ejs template
@@ -61,11 +66,13 @@ module.exports = (client) => {
   });
   router.get("/dashboard", async (req, res) => {
     try {
-    const businessCourses = await businessCoursesCollection.find({}).toArray();
-    const privateCourses = await privateCoursesCollection.find({}).toArray();
-    const courses = [...businessCourses, ...privateCourses];
-      res.render("dashboard", {courses});
-    } catch (error){
+      const businessCourses = await businessCoursesCollection
+        .find({})
+        .toArray();
+      const privateCourses = await privateCoursesCollection.find({}).toArray();
+      const courses = [...businessCourses, ...privateCourses];
+      res.render("dashboard", { courses });
+    } catch (error) {
       console.error("Failed to fetch courses: ", error);
       res.status(500).render("error", { error: "Internal Server Error" });
     }
