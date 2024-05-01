@@ -7,10 +7,13 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const fs = require("fs");
-const courseRoutes = require("./routes/index");
 const passport = require("passport");
 const flash = require("express-flash");
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require("uuid");
+const courseRoutes = require("./routes/index");
+const orderRoutes = require("./routes/order");
+const uploadRoute = require('./routes/upload');
+
 
 /*
 const initializePassport = require("./passport-config");
@@ -24,14 +27,18 @@ initializePassport(
 // Variables
 const port = 3000;
 const app = express();
-const users = [];
 
 // MongoDB Client Connect
 const uri = process.env.MONGO_URI;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: false }));
+app.use('/upload', uploadRoute);
+
 /*
 app.use(flash());
 app.use(session({
@@ -53,6 +60,11 @@ const client = new MongoClient(uri, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
+    ssl: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1,
+    tlsAllowInvalidCertificates: false,
   },
 });
 
@@ -61,7 +73,7 @@ const client = new MongoClient(uri, {
 //     useDefaults: true,
 //     directives: {
 //       "script-src": ["'self'"],
-//       "style-src": ["'self'"], 
+//       "style-src": ["'self'"],
 //       "img-src": ["'self'"],
 //     },
 //   },
@@ -73,10 +85,16 @@ const client = new MongoClient(uri, {
 // app.use(helmet(helmetConfig));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(
   session({
+    name: "MySessionID",
+    cookie: {
+      httpOnly: false,
+      maxAge: 3600000, // gemmer session i 1 time
+      // secure: true //Only works with https not localhost set to true when put up
+    },
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: true,
@@ -86,16 +104,14 @@ app.use(
 
 async function run() {
   try {
-    // Connect the client to the server (optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
-    const pingResult = await client.db("admin").command({ ping: 1 });
-    console.log("Successfully connected to MongoDB", pingResult);
+    console.log("Successfully connected to MongoDB");
 
+    const db = client.db("FirstAidCourses");
 
-    // Here you can pass the client or specific collections to your routes
+    // Pass `db` into the routes
     app.use("/", courseRoutes(client));
-
+    app.use("/", orderRoutes(db));
 
     // Routes can be here if they don't need database access
     /*app.get("/", (req, res) => {
