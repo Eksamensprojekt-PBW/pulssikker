@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1><%= title %></h1>
-    <form action="<%= title === 'tilføj kursus' ? '/add-course' : '/edit-course/' + course._id %>" method="post">
+    <form action="<%= title === 'tilføj kursus' ? '/add-course' : '/edit-course/' + course._id %>" method="post" enctype="multipart/form-data">
         <label for="title">Kursus Titel</label>
         <% if (title === 'tilføj kursus') { %>
             <input type="text" name="title" id="title" placeholder="">
@@ -28,7 +28,11 @@
         <input type="number" name="price" id="price" <% if (title === 'rediger kursus' && course) { %> value="<%= course.price %>" <% } %>>
         <label for="description">Beskrivelse</label>
         <input type="text" name="description" id="description" <% if (title === 'rediger kursus' && course) { %> value="<%= course.description %>" <% } %>>
+        <label for="image">Course Image</label>
+        <input type="file" name="image" id="image" required>
         <button type="submit">Gem</button>
+
+        
         
     </form>
 </body>

@@ -12,7 +12,7 @@ const flash = require("express-flash");
 const { v4: uuidv4 } = require("uuid");
 const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
-const uploadRoute = require("./routes/upload");
+const uploadRouter = require("./routes/upload.js").router;
 
 /*
 const initializePassport = require("./passport-config");
@@ -30,13 +30,11 @@ const app = express();
 // MongoDB Client Connect
 const uri = process.env.MONGO_URI;
 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: false }));
-app.use("/upload", uploadRoute);
 
 /*
 app.use(flash());
@@ -83,7 +81,6 @@ const client = new MongoClient(uri, {
 
 // app.use(helmet(helmetConfig));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(
@@ -100,6 +97,9 @@ app.use(
     cookie: { secure: true },
   })
 );
+
+const coursesRoutes = require("./routes/courses");
+app.use("/courses", coursesRoutes);
 
 async function run() {
   try {
