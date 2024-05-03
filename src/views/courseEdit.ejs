@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    
 </head>
 <body>
     <h1><%= title %></h1>
@@ -16,12 +15,13 @@
             <input type="text" name="title" id="title" value="<%= course.title %>">
             <!-- Include hidden input field to store course id -->
             <input type="hidden" id="courseId" name="courseId" value="<%= course._id %>">
+            <input type="hidden" id="courseOrigin" name="courseOrigin" value="<%= course.target %>">
         <% } %>
         <label>Kursus Type</label>
-        <label for="erhvervType">Erhverv</label>
-        <input type="radio" name="erhvervType" id="erhvervRadio" <% if (title === 'rediger kursus' && course && course.target === 'Business') { %> checked <% } %>>
-        <label for="privatType">Privat</label>
-        <input type="radio" name="privatType" id="privatRadio" <% if (title === 'rediger kursus' && course && course.target === 'Private') { %> checked <% } %>>
+        <label for="erhvervRadio">Erhverv</label>
+        <input type="radio" name="courseType" id="erhvervRadio" value="Business"<% if (title === 'rediger kursus' && course && course.target === 'Business') { %> checked <% } %>>
+        <label for="privatRadio">Privat</label>
+        <input type="radio" name="courseType" id="privatRadio" value="Private"<% if (title === 'rediger kursus' && course && course.target === 'Private') { %> checked <% } %>>
         <label for="duration">Varighed (i timer)</label>
         <input type="number" name="duration" id="duration" <% if (title === 'rediger kursus' && course) { %> value="<%= course.duration %>" <% } %>>
         <label for="price">Pris (i DKK)</label>
@@ -35,5 +35,24 @@
         
         
     </form>
+    <script>
+        function confirmAction() {
+        let text;
+        if ("<%= title %>" === 'tilføj kursus') {
+            text = "Kursus oprettet.";
+        } else {
+            text = "Kursus opdateret.";
+        }
+        Swal.fire({
+            icon: "success",
+            title: text,
+            showConfirmButton: false,
+            color: "#1b232e",
+            background: "#eeeeee",
+            timer: 2000
+            })
+        }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

@@ -29,6 +29,7 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "sharp": "^0.33.3",
+    "sweetalert2": "^11.10.8",
     "uuid": "^9.0.1"
   }
 }

@@ -19,8 +19,52 @@
     <div>
         <p><%= course.title %></p>
         <a href="/edit-course/<%= course._id %>"><img src="/img/pen-to-square-solid.svg" alt=""></a>
-        <a href="/delete-course/<%= course._id %>""><img src="/img/trash-can-solid.svg" alt=""></a>
+        <button onclick="confirmDelete('<%= course._id %>', 'course')"><img src="/img/trash-can-solid.svg" alt=""></button>
     </div>
 <% }) %>
+
+<h1>Instruktører</h1>
+<div>
+    <a href="/add-instructor">
+        <img src="/img/circle-plus-solid.svg" alt="">
+    <p>Tilføj Instruktør</p>
+    </a>
+</div>
+<% instructors.forEach(instructor => { %>
+    <div>
+        <p><%= instructor.name %></p>
+        <a href="/edit-instructor/<%= instructor._id %>"><img src="/img/pen-to-square-solid.svg" alt=""></a>
+        <button onclick="confirmDelete('<%= instructor._id %>', 'instructor')"><img src="/img/trash-can-solid.svg" alt=""></button>
+    </div>
+<% }) %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>
+<script>
+    function confirmDelete(id, type) {
+        event.stopPropagation();
+        Swal.fire({
+            title: (type === "course") ? "Vil du slette denne kursus?" : "Vil du slette denne instruktør?",
+            showCancelButton: true,
+            confirmButtonText: "Slet",
+            denyButtonText: "Tilbage",
+            confirmButtonColor: "#ff6236",
+            color: "#1b232e",
+            background: "#eeeeee",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: (type === "course") ? "Kursus slettet." : "Instruktør slettet.",
+                    showConfirmButton: false,
+                    color: "#1b232e",
+                    background: "#eeeeee",
+                    timer: 1500
+                    });
+                setTimeout(()=> {
+                window.location.href = `/delete-${type}/` + id;
+                }, 1500);
+            }
+        });
+    }
+</script>
