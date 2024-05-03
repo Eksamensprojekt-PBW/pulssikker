@@ -16,6 +16,11 @@
 <h2>Hvem er vi?</h2>
 <p>Vi er PulsSikker, hvor vores passion for førstehjælp driver os til at levere professionel træning og skabe en tryg og sikker hverdag for alle.</p>
 <h2>Mød dine instruktører</h2>
+<div>
+    <% instructors.forEach(function(instructor) { %>
+        <%- include('instructorCard', { instructor: instructor }) %>
+    <% }); %>
+</div>
 <%- include('footer') %>
 </body>
 </html>
