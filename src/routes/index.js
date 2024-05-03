@@ -16,9 +16,10 @@ const Swal = require('sweetalert2');
 Swal.fire();
 
 // Secret key for JWT
-const secretKey = 'your_secret_key';
+const secretKey = "your_secret_key";
 const multer = require("multer");
 
+module.exports = (client) => {
 module.exports = (client) => {
   const router = express.Router();
   const dbAccounts = client.db("Accounts");
@@ -88,7 +89,6 @@ module.exports = (client) => {
       console.error("Failed to fetch courses: ", error);
       res.status(500).render("error", { error: "Internal Server Error" });
     }
-      
   });
     // Route for adding a course
     router.get('/add-course', (req, res) => {
@@ -205,20 +205,24 @@ router.get('/delete-course/:id', async (req, res) => {
     const courseId = req.params.id;
     const objectId = new ObjectId(courseId);
 
-    // Determine from which collection to delete the course based on its type
-    const businessCourse = await businessCoursesCollection.findOne({ _id: objectId });
-    const privateCourse = await privateCoursesCollection.findOne({ _id: objectId });
+      // Determine from which collection to delete the course based on its type
+      const businessCourse = await businessCoursesCollection.findOne({
+        _id: objectId,
+      });
+      const privateCourse = await privateCoursesCollection.findOne({
+        _id: objectId,
+      });
 
-    if (businessCourse) {
-      // Delete the course from the business courses collection
-      await businessCoursesCollection.deleteOne({ _id: objectId });
-    } else if (privateCourse) {
-      // Delete the course from the private courses collection
-      await privateCoursesCollection.deleteOne({ _id: objectId });
-    } else {
-      // If the course is not found, send a 404 error
-      return res.status(404).send('Course not found');
-    }
+      if (businessCourse) {
+        // Delete the course from the business courses collection
+        await businessCoursesCollection.deleteOne({ _id: objectId });
+      } else if (privateCourse) {
+        // Delete the course from the private courses collection
+        await privateCoursesCollection.deleteOne({ _id: objectId });
+      } else {
+        // If the course is not found, send a 404 error
+        return res.status(404).send("Course not found");
+      }
 
     // Redirect to the dashboard or any other appropriate page after deletion
     console.log("Course successfully deleted.");
@@ -367,25 +371,29 @@ router.post('/registrer', async (req, res) => {
     // Extract user data from the request body
     const { email, username, password} = req.body;
 
-    // Check if user already exists
-    const existingUser = await accountsCollection.findOne({ username });
-        if (existingUser) {
-            return res.status(400).json({ error: 'User already exists' });
+      // Check if user already exists
+      const existingUser = await accountsCollection.findOne({ username });
+      if (existingUser) {
+        return res.status(400).json({ error: "User already exists" });
+      }
+      // Generate a salt
+      const salt = await bcrypt.genSalt(10);
+      // Hash the password using bcrypt with the generated salt
+      const hashedPassword = await bcrypt.hash(password, salt);
+      // Insert the course data into the appropriate collection
+      await accountsCollection.insertOne({
+        email: email,
+        username: username,
+        password: hashedPassword,
+      });
+      console.log("User successfully added.");
+      // Redirect based on Swal result (optional)
+      res.redirect("/login");
+    } catch (error) {
+      console.error("Error adding user:", error);
+      res.status(500).send("Internal Server Error");
     }
-    // Generate a salt
-    const salt = await bcrypt.genSalt(10);
-    // Hash the password using bcrypt with the generated salt
-    const hashedPassword = await bcrypt.hash(password, salt);
-    // Insert the course data into the appropriate collection
-    await accountsCollection.insertOne({ email: email, username: username, password: hashedPassword});
-    console.log("User successfully added.")
-  // Redirect based on Swal result (optional)
-  res.redirect('/login');
-  } catch (error) {
-    console.error("Error adding user:", error);
-    res.status(500).send('Internal Server Error');
-  }
-});
+  });
 
   return router;
 };
