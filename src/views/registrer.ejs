@@ -5,7 +5,11 @@
     <meta charset="utf-8" />
 </head>
 <body>
-    <h1>Registrer</h1>
+    <h1>registrer Page</h1>
+    <% if (errorMessage) { %>
+        <p style="color: red;"><%= errorMessage %></p>
+    <% } %>
+    
     <form action="/registrer" method="POST">
         <div>
             <label for="email">Email:</label>
