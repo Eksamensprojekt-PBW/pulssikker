@@ -12,12 +12,10 @@ const multer = require("multer");
 
 module.exports = (client) => {
   const router = express.Router();
-  const dbAccounts = client.db("Accounts");
   const dbCourses = client.db("FirstAidCourses");
   const dbInstructors = client.db("Instructors");
   const privateCoursesCollection = dbCourses.collection("privateCourses");
   const businessCoursesCollection = dbCourses.collection("businessCourses");
-  const accountsCollection = dbAccounts.collection("users");
   const instructorsCollection = dbInstructors.collection("instructors");
 
   // Serve initial pages

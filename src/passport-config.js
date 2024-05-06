@@ -32,8 +32,4 @@ function initialize(passport, getUserByUsername, getUserById) {
   });
 }
 
-<<<<<<< Updated upstream
 module.exports = initialize;
-=======
-module.exports = initialize;
->>>>>>> Stashed changes
