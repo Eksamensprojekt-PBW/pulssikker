@@ -1,0 +1,20 @@
+2024-05-06T08:22:23.090Z - INFO: Server has started on port 3000
+2024-05-06T08:22:32.152Z - INFO: IPv6: ::1 - Method: GET - URL: /erhverv - Status: 304 - Content-Length: undefined - Response-Time: 42.488 ms
+2024-05-06T08:22:32.174Z - INFO: IPv6: ::1 - Method: GET - URL: /css/styles.css - Status: 304 - Content-Length: undefined - Response-Time: 2.755 ms
+2024-05-06T08:22:32.174Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_black.svg - Status: 304 - Content-Length: undefined - Response-Time: 2.551 ms
+2024-05-06T08:22:32.175Z - INFO: IPv6: ::1 - Method: GET - URL: /img/bars-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 2.244 ms
+2024-05-06T08:22:32.187Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_white.svg - Status: 304 - Content-Length: undefined - Response-Time: 0.621 ms
+2024-05-06T08:22:32.209Z - INFO: IPv6: ::1 - Method: GET - URL: /favicon.ico - Status: 304 - Content-Length: undefined - Response-Time: 0.664 ms
+2024-05-06T08:22:32.791Z - INFO: IPv6: ::1 - Method: GET - URL: /privat - Status: 304 - Content-Length: undefined - Response-Time: 28.674 ms
+2024-05-06T08:22:32.813Z - INFO: IPv6: ::1 - Method: GET - URL: /css/styles.css - Status: 304 - Content-Length: undefined - Response-Time: 1.529 ms
+2024-05-06T08:22:32.814Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_black.svg - Status: 304 - Content-Length: undefined - Response-Time: 1.810 ms
+2024-05-06T08:22:32.814Z - INFO: IPv6: ::1 - Method: GET - URL: /img/bars-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 2.029 ms
+2024-05-06T08:22:32.826Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_white.svg - Status: 304 - Content-Length: undefined - Response-Time: 0.575 ms
+2024-05-06T08:22:32.854Z - INFO: IPv6: ::1 - Method: GET - URL: /favicon.ico - Status: 304 - Content-Length: undefined - Response-Time: 0.813 ms
+2024-05-06T08:22:33.611Z - INFO: IPv6: ::1 - Method: GET - URL: /om - Status: 304 - Content-Length: undefined - Response-Time: 27.080 ms
+2024-05-06T08:22:33.632Z - INFO: IPv6: ::1 - Method: GET - URL: /img/bars-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 1.001 ms
+2024-05-06T08:22:33.632Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_black.svg - Status: 304 - Content-Length: undefined - Response-Time: 1.200 ms
+2024-05-06T08:22:33.633Z - INFO: IPv6: ::1 - Method: GET - URL: /css/styles.css - Status: 304 - Content-Length: undefined - Response-Time: 1.417 ms
+2024-05-06T08:22:33.646Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_white.svg - Status: 304 - Content-Length: undefined - Response-Time: 1.134 ms
+2024-05-06T08:22:33.673Z - INFO: IPv6: ::1 - Method: GET - URL: /favicon.ico - Status: 304 - Content-Length: undefined - Response-Time: 0.729 ms
+
