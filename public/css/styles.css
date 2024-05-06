@@ -1,5 +1,7 @@
 :root {
-    --primary: #ff6236;
+    --primary: #ef4a1d;
+    --primary-hover: #b5320d;
+    --primary-fade: #ffac95;
     --secondary: #132235;
     --text: #1b232e;
     --overlay: #e4e4e4;
@@ -11,7 +13,11 @@
   font-family: Arial, Helvetica, sans-serif;
   scroll-behavior: smooth;
 }
-img {
+body {
+  background-color: var(--bg);
+  min-height: 100vh;
+}
+.icon {
     width: 2rem;
 }
 a {
@@ -21,6 +27,13 @@ header {
   display: flex;
   width: 100%;
   padding: 1rem;
+  align-items: center;
+}
+#headerLogo {
+  transition: transform 0.3s ease;
+}
+#headerLogo:hover {
+  transform: scale(1.1);
 }
 nav {
   display: block;
@@ -38,6 +51,18 @@ ul a {
 ul a:hover {
   color: var(--primary);
 }
+h1 {
+  font-size: 3.5rem;
+}
+h2 {
+  font-size: 2.5rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4, h5, h6, p {
+  font-size: 1.1rem;
+}
 h1,h2,h3,h4,h5,h6 {
   color: var(--text);
   margin-bottom: 1rem;
@@ -47,30 +72,46 @@ p {
   margin-bottom: 2rem;
 }
 
-.CTA {
+.CTA, button {
   background-color: var(--primary);
   border: none;
   padding: 1rem;
   text-transform: uppercase;
   color: var(--bg);
+  border-radius: 5px;
+  transition: 250ms ease;
 }
+.CTA:hover, button:hover {
+  background-color: var(--primary-hover);
+  color: var(--overlay);
+  transform: scale(0.95);
+}
+
 .CTA-secondary {
   background-color: var(--secondary);
   color: var(--bg);
-
+  border-radius: 5px;
   border: none;
   padding: 1rem;
   text-transform: uppercase;
+  transition: 250ms ease;
+  width: fit-content;
 }
-.heroContent {
-  margin: 5rem 0 5rem 5rem;
+.CTA-secondary:hover {
+  background-color: var(--text);
+  color: var(--overlay);
+  transform: scale(0.95);
 }
 .banner {
-  background-color: #e4e4e4;
+  background-color: var(--overlay);
   padding: 2rem 0 2rem 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 20%;
+}
+.banner p {
+  margin-bottom: 0;
 }
 .container {
   display: flex;
@@ -87,6 +128,7 @@ p {
     width: 30%;
     text-align: center;
     padding: 2rem;
+    border-radius: 5px;
 }
 footer {
   display: flex;
@@ -99,17 +141,106 @@ footer h3, footer p {
 }
 footer a {
   color: var(--primary);
+  transition: 250ms ease;
 }
+footer a:hover {
+  color: var(--primary-fade);
+}
+
 .info {
   text-align: center;
   margin: 5rem 0 5rem 0;
   padding: 0 25% 0 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .info p {
   margin-bottom: 3rem;
 }
 .hamburger-menu-icon {
   display: none;
+}
+.hero {
+  background-image: url(/img/banner.png);
+  background-size: cover;
+  background-position: center;
+  padding: 5rem;
+  height: 25rem;
+}
+.heroContent {
+  display: flex;
+  flex-direction: column;
+}
+.heroContent .CTA {
+  width: fit-content;
+}
+.course-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.courseCard {
+  display: flex;
+  width: 75%;
+  padding: 1rem;
+  margin: 1.5rem 0 1.5rem 0;
+  background-color: var(--overlay);
+  border-radius: 5px;
+}
+.courseCardImg {
+  width: 30rem;
+}
+.courseCardInfo {
+  padding: 1rem;
+}
+.orderForm {
+  display: flex;
+  flex-direction: column;
+}
+.orderForm input, textarea{
+  border: none;
+  background-color: var(--bg);
+  margin: 0.5rem 0 0.5rem 0;
+  height: 2rem;
+}
+.orderForm textarea {
+  resize: vertical;
+}
+#contactForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2rem;
+  background-color: var(--overlay);
+  border-radius: 5px;
+}
+#contactForm input, textarea {
+  border: none;
+  background-color: var(--bg);
+  margin: 0.5rem 0 0.5rem 0;
+  height: 2rem;
+}
+#contactForm textarea {
+  resize: vertical;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.notFound {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+}
+.courseContainer {
+  background-color: var(--overlay);
+}
+.courseEntry {
+  display: grid;
+  grid-template-columns: 5fr 2fr 2fr; 
 }
 @media only screen and (max-width: 768px) {
   /* Adjustments for tablet screens and smaller */

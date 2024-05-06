@@ -9,18 +9,24 @@
 </head>
 <body>
 <%- include('header') %>
-<div>
-    <h1>Om os</h1>
-    <p>Lær mere om vores erfaring og mission her.</p>
-</div>
-<h2>Hvem er vi?</h2>
-<p>Vi er PulsSikker, hvor vores passion for førstehjælp driver os til at levere professionel træning og skabe en tryg og sikker hverdag for alle.</p>
+<section class="hero">
+    <div class="heroContent">
+        <h1>Om os</h1>
+        <p>Lær mere om vores erfaring og mission her.</p>
+    </div>
+</section>
+<section class="info">
+    <h2>Hvem er vi?</h2>
+    <p>Vi er PulsSikker, hvor vores passion for førstehjælp driver os til at levere professionel træning og skabe en tryg og sikker hverdag for alle.</p>
+</section>
+<section class="info">
 <h2>Mød dine instruktører</h2>
-<div>
-    <% instructors.forEach(function(instructor) { %>
-        <%- include('instructorCard', { instructor: instructor }) %>
-    <% }); %>
-</div>
+    <div>
+        <% instructors.forEach(function(instructor) { %>
+            <%- include('instructorCard', { instructor: instructor }) %>
+        <% }); %>
+    </div>
+</section>
 <%- include('footer') %>
 </body>
 </html>

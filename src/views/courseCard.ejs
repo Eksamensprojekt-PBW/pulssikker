@@ -1,39 +1,38 @@
-<div>
-  <!--fix this later to be the picture from the database-->
-  <div>
-    <div><img src="" alt="" /></div>
-    <div>
-      <p><%= course.title %></p>
+<!--fix this later to be the picture from the database-->
+  <div class="courseCard">
+    <div ><img class="courseCardImg" src="/img/banner.png" alt="" /></div>
+    <div class="courseCardInfo">
+      <h3><%= course.title %></h3>
       <p>
-        <%= course.duration %> • <%= course.price %> <%= course.currency %><%=
+        <%= course.duration %> timer • <%= course.price %> <%= course.currency %><%=
         course.price_excl_vat ? ' (excl. VAT)' : '' %>
       </p>
       <p><%= course.description %></p>
       <button
-        onclick="document.getElementById('orderForm<%= course._id %>').style.display='block'"
+        onclick="document.getElementById('orderForm<%= course._id %>').style.display='block'; this.style.display='none'"
       >
-        Order Course
+        Bestil kursus
       </button>
       <div id="orderForm<%= course._id %>" style="display: none">
-        <form action="/order-course" method="post">
+        <form class="orderForm" action="/order-course" method="post">
           <input type="hidden" name="courseId" value="<%= course._id %>" />
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Your Email" required />
+          <input type="text" name="name" placeholder="Navn*" required />
+          <input type="email" name="email" placeholder="Email*" required />
           <% if (course.target === 'Business') { %>
           <input
             type="text"
             name="company"
-            placeholder="Company Name"
+            placeholder="Virksomheds Navn*"
             required
           />
           <% } %>
           <textarea
             name="additionalInfo"
-            placeholder="Additional Information"
+            placeholder="Ydligere Information"
           ></textarea>
           <button type="submit">Bestil kursus</button>
         </form>
       </div>
     </div>
   </div>
-</div>
+

@@ -1,3 +1,4 @@
+<div class="formContainer">
 <form id="contactForm" action="GET">
     <label for="name">Navn</label>
     <input type="text" name="name" id="name">
@@ -8,10 +9,11 @@
     <label for="phone">Tlf.</label>
     <input type="text" name="phone" id="phone">
     <p id="phoneCheck" style="display: none; color: red;">Indtast venligst et gyldigt nummer uden +45.</p>
-    <label for="message">Besked</label>
+    <label for="message">Besked*</label>
     <textarea name="message" id="message" cols="30" rows="10" required="true"></textarea>
     <button type="submit">Send</button>
 </form>
+</div>
 
 <script>
     const nameInput = document.getElementById('name');

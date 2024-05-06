@@ -176,10 +176,11 @@ router.post('/add-course', async (req, res) => {
           const collectionDestination = (courseOrigin === 'Business') ? privateCoursesCollection : businessCoursesCollection;
 
           // Find the course in the original collection
-          const originalCourse = await collectionOrigin.updateOne(
+          await collectionOrigin.updateOne(
             { _id: objectId },
             { $set: { title, duration, price, description, target: courseType } }
           );
+          const originalCourse = await collectionOrigin.findOne({ _id: objectId });
           
           // Insert the course into the destination collection
           await collectionDestination.insertOne(originalCourse);

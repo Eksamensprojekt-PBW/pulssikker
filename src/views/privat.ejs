@@ -9,8 +9,12 @@
 </head>
 <body>
 <%- include('header') %>
-<h1>Kurser til private</h1>
-<p>Professionelle førstehjælpskurser til private.</p>
+<section class="hero">
+    <div class="heroContent">
+        <h1>Kurser til private</h1>
+        <p>Professionelle førstehjælpskurser til private.</p>
+    </div>
+</section>
 <div class="course-list">
     <% courses.forEach(function(course) { %>
         <%- include('courseCard', { course: course }) %>
