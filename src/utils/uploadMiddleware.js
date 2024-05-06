@@ -1,27 +1,29 @@
 const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
+const crypto = require("crypto");
 const path = require("path");
 
-// Set up multer to store images in the public/img directory
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // Correct the path to move up one level from 'src/utils' to the root, then into 'public/img'
-    cb(null, path.join(__dirname, "../../public/img"));
-  },
-  filename: function (req, file, cb) {
-    // Use Date.now() to prefix the file name and prevent overwriting
-    cb(null, Date.now() + "-" + file.originalname);
+// Create storage engine
+const storage = new GridFsStorage({
+  url: process.env.MONGO_URI,
+  options: { useUnifiedTopology: true, useNewUrlParser: true },
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString("hex") + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketName: "uploads",
+        };
+        resolve(fileInfo);
+      });
+    });
   },
 });
 
-// Only allow image uploads
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
-    cb(null, true);
-  } else {
-    cb(new Error("Not an image! Please upload only images."), false);
-  }
-};
-
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+const upload = multer({ storage });
 
 module.exports = upload;

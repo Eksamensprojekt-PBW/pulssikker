@@ -5,7 +5,11 @@
     <meta charset="utf-8" />
 </head>
 <body>
-    <h1>Registrer</h1>
+    <h1>registrer Page</h1>
+    <% if (errorMessage) { %>
+        <p style="color: red;"><%= errorMessage %></p>
+    <% } %>
+    
     <form action="/registrer" method="POST">
         <div>
             <label for="email">Email:</label>
@@ -25,5 +29,14 @@
         </div>
         <button type="submit">Registrer</button>
     </form>
+
+    <h2>Password Requirements</h2>
+    <ul>
+        <li>Skal være mindst 16 tegn lang.</li>
+        <li>Skal indeholde mindst ét stort bogstav (A-Z).</li>
+        <li>Skal indeholde mindst ét lille bogstav (a-z).</li>
+        <li>Skal indeholde mindst ét tal (0-9).</li>
+        <li>Skal indeholde mindst ét specialtegn, som ikke er: ('), (") eller (\).</li>
+    </ul>
 </body>
 </html>
