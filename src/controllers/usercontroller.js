@@ -24,50 +24,56 @@ module.exports = (client) => {
             const user = await usersCollection.findOne({ username: req.body.username });
     
             if (!user) {
-                // If the user it not found
                 req.session.errorMessage = 'User does not exist';
-                res.redirect('/login');
-            } else {
-                // Check if password matches
-                const passwordMatch = await bcrypt.compare(req.body.password, user.password);
-                
-                if (passwordMatch) {
-                    // If password matches, log in the user
-                    req.session.user = { id: user._id, username: user.username };
-                    req.session.errorMessage = null; // Clear any previous error message
-                    res.redirect('/dashboard');
-                } else {
-                    // If password does not match
-                    req.session.errorMessage = 'Invalid credentials';
-                    res.redirect('/login');
-                }
+                return res.redirect('/login');
             }
+            
+            const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+            if (!passwordMatch) {
+                req.session.errorMessage = 'Invalid credentials';
+                return res.redirect('/login');
+            }
+    
+            // Handle session regeneration and user login
+            req.session.regenerate(error => {
+                if (error) {
+                    req.session.errorMessage = `Session error: ${err.message}`;
+                    return res.redirect('/login');
+                }
+                req.session.user = { id: user._id, username: user.username };
+                req.session.errorMessage = null; // Clear any previous error message
+                res.redirect('/dashboard');
+            });  
         } catch (error) {
-            // General error message
             req.session.errorMessage = `Error: ${error.message}`;
             res.redirect('/login');
         }
     };
+    
 
     const signupUser = async (req, res) => {
         try {
-            const { username, password, email } = req.body;
+            const { username, password, repeatPassword, email } = req.body;
     
             // Regex for password validation
-            const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
-    
-            // Validate the password against the regex
-            if (!passwordRegex.test(password)) {
-                req.session.errorMessage = 'Password invalid';
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z\d'"\s\\]).{16,}$/g;
+
+            // Validate if password matches repeated password
+            if (!password == repeatPassword) {
+                req.session.errorMessage = 'Passwords matcher ikke';
                 return res.redirect('/registrer');
             }
     
-            // Get the users collection
+            // Validate the password against the regex
+            if (!passwordRegex.test(password)) {
+                req.session.errorMessage = 'Password mødder ikke sikkerheds kritierne';
+                return res.redirect('/registrer');
+            }
+    
             const usersCollection = await getUsersCollection(client);
     
-            // Check if the user already exists by username or email
+            // Check for existing user
             const existingUser = await usersCollection.findOne({username});
-    
             if (existingUser) {
                 req.session.errorMessage = 'User already exists';
                 return res.redirect('/registrer');
@@ -76,7 +82,7 @@ module.exports = (client) => {
             // Hash the password before storing
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
-    
+
             // Insert the new user into the collection
             await usersCollection.insertOne({
                 username,
@@ -84,10 +90,13 @@ module.exports = (client) => {
                 email
             });
     
+            // Redirect to login after successful registration
+            req.session.errorMessage = null;  // Clear any previous error messages
             res.redirect('/login');
         } catch (error) {
             // Handle any unexpected errors and send a response to the client
-            res.status(500).send(`Error: ${error.message}`);
+            req.session.errorMessage = `Error: ${error.message}`;
+            res.redirect('/registrer');
         }
     };
 
@@ -100,7 +109,6 @@ module.exports = (client) => {
             res.redirect('/login');
         });
     } 
-    
 
     return {
         getLoginPage,

@@ -77,7 +77,7 @@ module.exports = (client) => {
       res.status(500).render("error", { error: "Internal Server Error" });
     }
   });
-  router.get("/dashboard", async (req, res) => {
+  router.get("/dashboard", isAuthenticated, async (req, res) => {
     try {
       const businessCourses = await businessCoursesCollection
         .find({})
