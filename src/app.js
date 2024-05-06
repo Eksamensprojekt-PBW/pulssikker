@@ -9,7 +9,6 @@ const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const fs = require("fs");
 const passport = require("passport");
-const flash = require("express-flash");
 const { v4: uuidv4 } = require("uuid");
 const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
@@ -19,16 +18,6 @@ const connectToDatabase = require('./config/db.js');
 // ---------- | Import routes | ----------
 const coursesRoutes = require("./routes/courses");
 const loginRoutes = require("./routes/login");
-
-
-/*
-const initializePassport = require("./passport-config");
-initializePassport(
-  passport,
-  username => users.find(user => user.username === username),
-  id => users.find(user => user.id === id)
-);
-*/
 
 // ---------- | Initialize App and Variables | ----------
 // Variables
@@ -96,19 +85,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-/*
-app.use(flash());
-app.use(session({
-  //move uuidv4 to a scretkey value, and move it to .env enviroment
-  secret: uuidv4(),
-  resave: false,
-  saveUninitialized: false,
-}));
-//app.use(passport.initialize());
-//app.use(passport.session());
-*/
-
-
 // const helmetConfig = {
 //   contentSecurityPolicy: {
 //     useDefaults: true,
@@ -135,8 +111,8 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // secure: true //Only works with https not localhost set to true when put up
-      httpOnly: false,
+      secure: false, // Ensures cookies are sent over HTTPS. - set to true later
+      httpOnly: false, // Prevents client-side JavaScript from reading the session cookie. - set to true later
       maxAge: 3600000, // gemmer session i 1 time
     },
   })

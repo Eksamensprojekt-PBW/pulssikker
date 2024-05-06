@@ -6,9 +6,23 @@ const { ObjectId } = require("mongodb");
 const Swal = require("sweetalert2");
 Swal.fire();
 
-// Secret key for JWT
-const secretKey = "your_secret_key";
-const multer = require("multer");
+/*
+ Authentication middleware
+    User everywhere authentication is needed
+    
+    example:
+    app.get('/dashboard', isAuthenticated, (req, res) => {
+      res.render('dashboard');
+    });
+*/
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+      next();
+  } else {
+      res.redirect('/login');
+  }
+}
+
 
 module.exports = (client) => {
   const router = express.Router();

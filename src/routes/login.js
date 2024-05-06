@@ -8,6 +8,7 @@ module.exports = (client) => {
     router.post('/login', userController.loginUser);
     router.get('/registrer', userController.getSignupPage);
     router.post('/registrer', userController.signupUser);
+    router.get('/logout', userController.logoutUser);
 
     return router;
 };

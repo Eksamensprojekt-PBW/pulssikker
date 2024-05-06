@@ -33,7 +33,7 @@ module.exports = (client) => {
                 
                 if (passwordMatch) {
                     // If password matches, log in the user
-                    req.session.user = user;
+                    req.session.user = { id: user._id, username: user.username };
                     req.session.errorMessage = null; // Clear any previous error message
                     res.redirect('/dashboard');
                 } else {
@@ -90,6 +90,16 @@ module.exports = (client) => {
             res.status(500).send(`Error: ${error.message}`);
         }
     };
+
+    const logoutUser = (req, res) => {
+        req.session.destroy(error => {
+            if (error) {
+                return res.redirect('/dashboard');
+            }
+            res.clearCookie('MySessionID');
+            res.redirect('/login');
+        });
+    } 
     
 
     return {
@@ -97,5 +107,6 @@ module.exports = (client) => {
         getSignupPage,
         loginUser,
         signupUser,
+        logoutUser
     };
 };
