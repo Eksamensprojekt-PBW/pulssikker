@@ -37,43 +37,9 @@ const app = express();
 
 const uri = process.env.MONGO_URI;
 
-// ---------- | Configure App | ----------
+// ---------- | Configure App and middleware| ----------
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-// ---------- | Setup middleware | ----------
-
-app.use(morganMiddleware);
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
-
-/*
-app.use(flash());
-app.use(session({
-  //move uuidv4 to a scretkey value, and move it to .env enviroment
-  secret: uuidv4(),
-  resave: false,
-  saveUninitialized: false,
-}));
-//app.use(passport.initialize());
-//app.use(passport.session());
-*/
-
-
-// const helmetConfig = {
-//   contentSecurityPolicy: {
-//     useDefaults: true,
-//     directives: {
-//       "script-src": ["'self'"],
-//       "style-src": ["'self'"],
-//       "img-src": ["'self'"],
-//     },
-//   },
-//   frameguard: {
-//     action: "deny",
-//   },
-// };
 
 // Ensure logs directory exists
 const logsDirectory = path.join(__dirname, "logs");
@@ -122,6 +88,41 @@ const morganMiddleware = morgan(
   },
   { stream: { write: (message) => logger.info(message.trim()) } }
 );
+
+
+// ---------- | Setup global middleware | ----------
+app.use(morganMiddleware);
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+
+/*
+app.use(flash());
+app.use(session({
+  //move uuidv4 to a scretkey value, and move it to .env enviroment
+  secret: uuidv4(),
+  resave: false,
+  saveUninitialized: false,
+}));
+//app.use(passport.initialize());
+//app.use(passport.session());
+*/
+
+
+// const helmetConfig = {
+//   contentSecurityPolicy: {
+//     useDefaults: true,
+//     directives: {
+//       "script-src": ["'self'"],
+//       "style-src": ["'self'"],
+//       "img-src": ["'self'"],
+//     },
+//   },
+//   frameguard: {
+//     action: "deny",
+//   },
+// };
+
 
 // app.use(helmet(helmetConfig));
 app.use(bodyParser.json());
