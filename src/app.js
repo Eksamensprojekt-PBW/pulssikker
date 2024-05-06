@@ -16,6 +16,7 @@ const connectToDatabase = require('./config/db.js');
 
 // ---------- | Import routes | ----------
 const coursesRoutes = require("./routes/courses");
+const loginRoutes = require("./routes/login");
 
 
 /*
@@ -41,9 +42,7 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
 
 /*
 app.use(flash());
@@ -79,21 +78,22 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(
   session({
     name: "MySessionID",
-    cookie: {
-      httpOnly: false,
-      maxAge: 3600000, // gemmer session i 1 time
-      // secure: true //Only works with https not localhost set to true when put up
-    },
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true },
+    cookie: {
+      secure: false, // secure: true //Only works with https not localhost set to true when put up
+      httpOnly: false,
+      maxAge: 3600000, // gemmer session i 1 time
+    },
   })
 );
 
 // ---------- | Use Routes | ----------
 
 app.use("/courses", coursesRoutes);
+
+
 
 
 
@@ -106,13 +106,7 @@ async function run() {
     // Pass `db` into the routes
     app.use("/", courseRoutes(client));
     app.use("/", orderRoutes(db));
-
-    // Routes can be here if they don't need database access
-    /*app.get("/", (req, res) => {
-        res.send("Hello world");
-      });
-    */
-
+    app.use("/", loginRoutes(client));
     app.use((req, res) => {
       res.status(404).render("404");
     });
