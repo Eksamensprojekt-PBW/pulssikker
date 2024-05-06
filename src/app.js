@@ -1,6 +1,5 @@
-// Requirements
+// ---------- | Import required modules | ----------
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
@@ -13,6 +12,11 @@ const { v4: uuidv4 } = require("uuid");
 const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
 const uploadRouter = require("./routes/upload.js").router;
+const connectToDatabase = require('./config/db.js');
+
+// ---------- | Import routes | ----------
+const coursesRoutes = require("./routes/courses");
+
 
 /*
 const initializePassport = require("./passport-config");
@@ -23,18 +27,23 @@ initializePassport(
 );
 */
 
-// Variables
+// ---------- | Initialize App and Variables | ----------
 const port = 3000;
 const app = express();
 
-// MongoDB Client Connect
 const uri = process.env.MONGO_URI;
+
+// ---------- | Configure App | ----------
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+// ---------- | Setup middleware | ----------
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
 
 /*
 app.use(flash());
@@ -48,22 +57,6 @@ app.use(session({
 //app.use(passport.session());
 */
 
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-    ssl: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverApi: ServerApiVersion.v1,
-    tlsAllowInvalidCertificates: false,
-  },
-});
 
 // const helmetConfig = {
 //   contentSecurityPolicy: {
@@ -98,14 +91,16 @@ app.use(
   })
 );
 
-const coursesRoutes = require("./routes/courses");
+// ---------- | Use Routes | ----------
+
 app.use("/courses", coursesRoutes);
 
+
+
+// ---------- | run application | ----------
 async function run() {
   try {
-    await client.connect();
-    console.log("Successfully connected to MongoDB");
-
+    const client = await connectToDatabase(uri);
     const db = client.db("FirstAidCourses");
 
     // Pass `db` into the routes
