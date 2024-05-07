@@ -8,15 +8,13 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const fs = require("fs");
-const passport = require("passport");
-const { v4: uuidv4 } = require("uuid");
 const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
 const uploadRouter = require("./routes/upload.js").router;
 const connectToDatabase = require('./config/db.js');
 
 // ---------- | Import routes | ----------
-const coursesRoutes = require("./routes/courses");
+//const coursesRoutes = require("./routes/courses");
 const loginRoutes = require("./routes/login");
 
 // ---------- | Initialize App and Variables | ----------
@@ -120,7 +118,7 @@ app.use(
 
 // ---------- | Use Routes | ----------
 
-app.use("/courses", coursesRoutes);
+//app.use("/courses", coursesRoutes);
 
 
 // ---------- | run application | ----------

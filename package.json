@@ -26,11 +26,8 @@
     "multer-gridfs-storage": "^5.0.2",
     "node-mailjet": "^6.0.5",
     "nodemailer": "^6.9.13",
-    "passport": "^0.7.0",
-    "passport-local": "^1.0.0",
     "sharp": "^0.33.3",
     "sweetalert2": "^11.10.8",
-    "uuid": "^9.0.1",
     "winston": "^3.13.0"
   }
 }
