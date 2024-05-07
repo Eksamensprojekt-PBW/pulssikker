@@ -202,3 +202,21 @@
 2024-05-07T09:15:27.503Z - INFO: IPv6: ::1 - Method: GET - URL: /img/pen-to-square-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 2.585 ms
 2024-05-07T09:15:27.504Z - INFO: IPv6: ::1 - Method: GET - URL: /img/trash-can-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 3.225 ms
 2024-05-07T09:15:27.602Z - INFO: IPv6: ::1 - Method: GET - URL: /favicon.ico - Status: 304 - Content-Length: undefined - Response-Time: 3.650 ms
+2024-05-07T09:34:26.801Z - INFO: Server has started on port 3000
+2024-05-07T09:34:32.888Z - INFO: IPv6: ::1 - Method: GET - URL: / - Status: 304 - Content-Length: undefined - Response-Time: 65.082 ms
+2024-05-07T09:34:32.944Z - INFO: IPv6: ::1 - Method: GET - URL: /css/styles.css - Status: 304 - Content-Length: undefined - Response-Time: 8.397 ms
+2024-05-07T09:34:32.946Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_darkblue.svg - Status: 304 - Content-Length: undefined - Response-Time: 8.757 ms
+2024-05-07T09:34:32.948Z - INFO: IPv6: ::1 - Method: GET - URL: /img/bars-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 9.155 ms
+2024-05-07T09:34:33.063Z - INFO: IPv6: ::1 - Method: GET - URL: /img/pen-ruler-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 7.704 ms
+2024-05-07T09:34:33.065Z - INFO: IPv6: ::1 - Method: GET - URL: /img/chalkboard-user-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 9.976 ms
+2024-05-07T09:34:33.066Z - INFO: IPv6: ::1 - Method: GET - URL: /img/logo_white.svg - Status: 304 - Content-Length: undefined - Response-Time: 10.431 ms
+2024-05-07T09:34:33.086Z - INFO: IPv6: ::1 - Method: GET - URL: /img/banner.png - Status: 304 - Content-Length: undefined - Response-Time: 1.210 ms
+2024-05-07T09:34:39.340Z - INFO: IPv6: ::1 - Method: GET - URL: /login - Status: 200 - Content-Length: 640 - Response-Time: 31.532 ms
+2024-05-07T09:34:39.470Z - INFO: IPv6: ::1 - Method: GET - URL: /favicon.ico - Status: 304 - Content-Length: undefined - Response-Time: 1.662 ms
+2024-05-07T09:34:41.837Z - INFO: IPv6: ::1 - Method: POST - URL: /login - Status: 302 - Content-Length: 64 - Response-Time: 180.619 ms
+2024-05-07T09:34:42.126Z - INFO: IPv6: ::1 - Method: GET - URL: /dashboard - Status: 304 - Content-Length: undefined - Response-Time: 277.610 ms
+2024-05-07T09:34:42.162Z - INFO: IPv6: ::1 - Method: GET - URL: /css/styles.css - Status: 304 - Content-Length: undefined - Response-Time: 1.019 ms
+2024-05-07T09:34:42.174Z - INFO: IPv6: ::1 - Method: GET - URL: /img/circle-plus-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 2.542 ms
+2024-05-07T09:34:42.176Z - INFO: IPv6: ::1 - Method: GET - URL: /img/pen-to-square-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 3.237 ms
+2024-05-07T09:34:42.186Z - INFO: IPv6: ::1 - Method: GET - URL: /img/trash-can-solid.svg - Status: 304 - Content-Length: undefined - Response-Time: 0.941 ms
+2024-05-07T09:34:42.286Z - INFO: IPv6: ::1 - Method: GET - URL: /favicon.ico - Status: 304 - Content-Length: undefined - Response-Time: 2.214 ms

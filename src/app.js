@@ -12,6 +12,7 @@ const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
 const uploadRouter = require("./routes/upload.js").router;
 const connectToDatabase = require('./config/db.js');
+const MongoStore = require('connect-mongo');
 
 // ---------- | Import routes | ----------
 //const coursesRoutes = require("./routes/courses");
@@ -106,6 +107,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      clientPromise: connectToDatabase(process.env.MONGO_URI), // Using clientPromise to handle the async nature
+      dbName: 'sessions', // Specify the name of the database where the sessions will be stored
+      collectionName: 'expressSessions' // Specify the collection name
+  }),
     cookie: {
       secure: false, // Ensures cookies are sent over HTTPS. - set to true later
       httpOnly: false, // Prevents client-side JavaScript from reading the session cookie. - set to true later
