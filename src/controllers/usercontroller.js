@@ -59,9 +59,9 @@ module.exports = (client) => {
             const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z\d'"\s\\]).{16,}$/g;
 
             // Validate if password matches repeated password
-            if (!password == repeatPassword) {
-                req.session.errorMessage = 'Passwords matcher ikke';
-                return res.redirect('/registrer');
+            if (password !== repeatPassword) {
+            req.session.errorMessage = 'Passwords matcher ikke';
+            return res.redirect('/registrer');
             }
     
             // Validate the password against the regex
@@ -75,7 +75,7 @@ module.exports = (client) => {
             // Check for existing user
             const existingUser = await usersCollection.findOne({username});
             if (existingUser) {
-                req.session.errorMessage = 'User already exists';
+                req.session.errorMessage = 'brugeren eksistere allerede';
                 return res.redirect('/registrer');
             }
     
