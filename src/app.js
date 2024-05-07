@@ -21,10 +21,8 @@ const loginRoutes = require("./routes/login");
 
 // ---------- | Initialize App and Variables | ----------
 // Variables
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
-
-const uri = process.env.MONGO_URI;
 
 // ---------- | Configure App and middleware| ----------
 app.set("view engine", "ejs");
@@ -107,7 +105,7 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(
   session({
     name: "MySessionID",
-    secret: "your_secret_key",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -128,7 +126,7 @@ app.use("/courses", coursesRoutes);
 // ---------- | run application | ----------
 async function run() {
   try {
-    const client = await connectToDatabase(uri);
+    const client = await connectToDatabase(process.env.MONGO_URI);
     const db = client.db("FirstAidCourses");
 
     // Pass `db` into the routes
@@ -150,9 +148,9 @@ async function run() {
     });
 
     // Start the application
-    app.listen(3000, () => {
-      console.log("Application is running on http://localhost:3000");
-      logger.info("Server has started on port 3000");
+    app.listen(port, () => {
+      console.log(`Application is running on http://localhost:${port}`);
+      logger.info(`Server has started on port ${port}`);
     });
   } catch (error) {
     console.error(error);
