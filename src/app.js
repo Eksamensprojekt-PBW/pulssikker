@@ -46,7 +46,7 @@ const logger = winston.createLogger({
       level: "error",
     }),
     new winston.transports.File({
-      filename: path.join(logsDirectory, "combined.log"),
+      filename: path.join(logsDirectory, "router.log"),
     }),
   ],
   exceptionHandlers: [
@@ -144,6 +144,19 @@ async function run() {
       );
       res.status(500).send("Something broke!");
     });
+
+    process.on('unhandledRejection', (reason, promise) => {
+      console.error('Unhandled Rejection:', reason);
+      // handle the error safely
+      
+  });
+  
+  process.on('uncaughtException', (error) => {
+      console.error('Uncaught Exception:', error);
+      // handle the error safely
+      
+  });
+  
 
     // Start the application
     app.listen(port, () => {

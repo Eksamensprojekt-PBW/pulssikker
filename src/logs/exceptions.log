@@ -1,0 +1,6 @@
+2024-05-07T11:09:57.446Z - ERROR: uncaughtException: Cannot read properties of undefined (reading '_id')
+TypeError: Cannot read properties of undefined (reading '_id')
+    at GridFSBucketWriteStream.emitFile (D:\Skole-projekter\pulssikker\node_modules\multer-gridfs-storage\lib\gridfs.js:306:31)
+    at GridFSBucketWriteStream.emit (node:events:526:35)
+    at finish (node:internal/streams/writable:807:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
