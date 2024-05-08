@@ -29,7 +29,7 @@
         <label for="description">Beskrivelse</label>
         <input type="text" name="description" id="description" <% if (title === 'rediger kursus' && course) { %> value="<%= course.description %>" <% } %>>
         <label for="image">Course Image</label>
-        <input type="file" name="image" id="image" required>
+        <input type="file" name="imageFile" accept="image/*">
         <button type="submit">Gem</button>
 
         

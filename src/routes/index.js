@@ -1,5 +1,5 @@
 const express = require("express");
-
+const upload = require("../utils/uploadMiddleware");
 //const userController = require("../controllers/usercontroller");
 const { ObjectId } = require("mongodb");
 // Initialize SweetAlert2
@@ -17,12 +17,11 @@ Swal.fire();
 */
 function isAuthenticated(req, res, next) {
   if (req.session.user) {
-      next();
+    next();
   } else {
-      res.redirect('/login');
+    res.redirect("/login");
   }
 }
-
 
 module.exports = (client) => {
   const router = express.Router();
@@ -139,19 +138,17 @@ module.exports = (client) => {
     }
   });
   // Route for adding a course
-  router.post("/add-course", async (req, res) => {
+  router.post("/add-course", upload.single("imageFile"), async (req, res) => {
     try {
-      console.log("Adding a course");
-      // Extract course data from the request body
+      console.log("Adding a course POST");
       const { title, courseType, duration, price, description } = req.body;
+      const imagePath = req.file ? req.file.filename : "default-filename"; // Ensure fallback for no file case
 
-      // Determine which collection to use based on the course type
       const collection =
         courseType === "Business"
           ? businessCoursesCollection
           : privateCoursesCollection;
 
-      // Insert the course data into the appropriate collection
       await collection.insertOne({
         title,
         duration,
@@ -159,76 +156,95 @@ module.exports = (client) => {
         currency: "DKK",
         description,
         target: courseType,
+        image: imagePath,
       });
 
-      console.log("Course added.");
-      setTimeout(() => {
-        res.redirect("/dashboard");
-      }, 2000);
+      console.log("Course added with image.");
+      res.redirect("/dashboard");
     } catch (error) {
       console.error("Error adding course:", error);
       res.status(500).send("Internal Server Error");
     }
   });
+
   // Route for editing a course (POST request)
-  router.post("/edit-course/:id", async (req, res) => {
-    try {
-      console.log("Editing a course");
-      const courseId = req.params.id;
-      const objectId = new ObjectId(courseId);
-      // Extract updated course data from the request body
-      const { title, courseOrigin, courseType, duration, price, description } =
-        req.body;
-      console.log(req.body);
+  router.post(
+    "/edit-course/:id",
+    upload.single("imageFile"),
+    async (req, res) => {
+      try {
+        console.log("Editing a course");
+        const courseId = req.params.id;
+        const objectId = new ObjectId(courseId);
+        // Extract updated course data from the request body
+        const {
+          title,
+          courseOrigin,
+          courseType,
+          duration,
+          price,
+          description,
+        } = req.body;
+        const imagePath = req.file ? req.file.filename : undefined; // Get the new image path if provided
 
-      //Checking it the course type
-      if (courseOrigin == courseType) {
-        //If the course type hhasn't changed
-        // Determine which collection to use based on the course type
-        const collection =
-          courseType === "Business"
-            ? businessCoursesCollection
-            : privateCoursesCollection;
-        // Update the course data in the appropriate collection
-        await collection.updateOne(
-          { _id: objectId },
-          { $set: { title, duration, price, description, target: courseType } }
-        );
-      } else if (courseOrigin !== courseType) {
-        // If the course type has changed, move the course to the appropriate collection
-        const collectionOrigin =
-          courseOrigin === "Business"
-            ? businessCoursesCollection
-            : privateCoursesCollection;
-        const collectionDestination =
-          courseOrigin === "Business"
-            ? privateCoursesCollection
-            : businessCoursesCollection;
+        // Check if the course type has changed
+        if (courseOrigin == courseType) {
+          const collection =
+            courseType === "Business"
+              ? businessCoursesCollection
+              : privateCoursesCollection;
 
-          // Find the course in the original collection
+          // Update the course data in the appropriate collection, including the new image path if available
+          await collection.updateOne(
+            { _id: objectId },
+            {
+              $set: {
+                title,
+                duration,
+                price,
+                description,
+                target: courseType,
+                ...(imagePath && { image: imagePath }),
+              },
+            }
+          );
+        } else {
+          const collectionOrigin =
+            courseOrigin === "Business"
+              ? businessCoursesCollection
+              : privateCoursesCollection;
+          const collectionDestination =
+            courseOrigin === "Business"
+              ? privateCoursesCollection
+              : businessCoursesCollection;
+
+          // Update and move the course to the new collection
           await collectionOrigin.updateOne(
             { _id: objectId },
-            { $set: { title, duration, price, description, target: courseType } }
+            {
+              $set: { title, duration, price, description, target: courseType },
+            }
           );
-          const originalCourse = await collectionOrigin.findOne({ _id: objectId });
-          
-          // Insert the course into the destination collection
+          const originalCourse = await collectionOrigin.findOne({
+            _id: objectId,
+          });
+          if (imagePath) {
+            originalCourse.image = imagePath; // Update the image path in the new collection
+          }
           await collectionDestination.insertOne(originalCourse);
+          await collectionOrigin.deleteOne({ _id: objectId });
+        }
 
-        // Delete the original course from the original collection
-        await collectionOrigin.deleteOne({ _id: objectId });
+        console.log("Course updated.");
+        setTimeout(() => {
+          res.redirect("/dashboard");
+        }, 2000);
+      } catch (error) {
+        console.error("Error editing course:", error);
+        res.status(500).send("Internal Server Error");
       }
-
-      console.log("Course updated.");
-
-      setTimeout(() => {
-        res.redirect("/dashboard");
-      }, 2000);
-    } catch (error) {
-      console.error("Error editing course:", error);
-      res.status(500).send("Internal Server Error");
     }
-  });
+  );
 
   router.get("/delete-course/:id", async (req, res) => {
     try {
