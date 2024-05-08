@@ -8,8 +8,6 @@ var transporter = nodemailer.createTransport({
     user: "pulssikker@outlook.dk",
     pass: "Hejmeddig123",
   },
-  debug: true,
-  logger: true,
 });
 
 function sendEmail({ to, subject, html }) {

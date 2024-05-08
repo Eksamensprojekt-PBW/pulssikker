@@ -11,8 +11,8 @@ const fs = require("fs");
 const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
 const uploadRouter = require("./routes/upload.js").router;
-const connectToDatabase = require('./config/db.js');
-const MongoStore = require('connect-mongo');
+const connectToDatabase = require("./config/db.js");
+const MongoStore = require("connect-mongo");
 
 // ---------- | Import routes | ----------
 //const coursesRoutes = require("./routes/courses");
@@ -75,29 +75,28 @@ const morganMiddleware = morgan(
   { stream: { write: (message) => logger.info(message.trim()) } }
 );
 
-
 // ---------- | Setup global middleware | ----------
 app.use(morganMiddleware);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(helmet({
-  contentSecurityPolicy: {
-      directives: {
-          defaultSrc: ["'self'"],
-          scriptSrc: ["'self'"],
-          objectSrc: ["'none'"],
-          upgradeInsecureRequests: [],
-      }
-  },
-  frameguard: {
-      action: 'deny'
-  },
-  dnsPrefetchControl: {
-      allow: false
-  }
-}));
+// app.use(helmet({
+//   contentSecurityPolicy: {
+//       directives: {
+//           defaultSrc: ["'self'"],
+//           scriptSrc: ["'self'"],
+//           objectSrc: ["'none'"],
+//           upgradeInsecureRequests: [],
+//       }
+//   },
+//   frameguard: {
+//       action: 'deny'
+//   },
+//   dnsPrefetchControl: {
+//       allow: false
+//   }
+// }));
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
@@ -110,15 +109,15 @@ app.use(
     saveUninitialized: true,
     store: MongoStore.create({
       clientPromise: connectToDatabase(process.env.MONGO_URI), // Using clientPromise to handle the async nature
-      dbName: 'sessions', // Specify the name of the database where the sessions will be stored
-      collectionName: 'expressSessions' // Specify the collection name
-  }),
+      dbName: "sessions", // Specify the name of the database where the sessions will be stored
+      collectionName: "expressSessions", // Specify the collection name
+    }),
     cookie: {
       secure: false, // Ensures cookies are sent over HTTPS. - set to true later
       httpOnly: false, // Prevents client-side JavaScript from reading the session cookie. - set to true later
       maxAge: 3600000, // gemmer session i 1 time
-      sameSite: 'strict' // Can be 'strict', 'lax', or 'none' - skal lige se om det er nødvendig
-                        // hvis ikke den bøvler så er det ekstar csrf beskyttlese
+      sameSite: "strict", // Can be 'strict', 'lax', or 'none' - skal lige se om det er nødvendig
+      // hvis ikke den bøvler så er det ekstar csrf beskyttlese
     },
   })
 );
@@ -126,7 +125,6 @@ app.use(
 // ---------- | Use Routes | ----------
 
 //app.use("/courses", coursesRoutes);
-
 
 // ---------- | run application | ----------
 async function run() {
@@ -152,18 +150,15 @@ async function run() {
       res.status(500).send("Something broke!");
     });
 
-    process.on('unhandledRejection', (reason, promise) => {
-      console.error('Unhandled Rejection:', reason);
+    process.on("unhandledRejection", (reason, promise) => {
+      console.error("Unhandled Rejection:", reason);
       // handle the error safely
-      
-  });
-  
-  process.on('uncaughtException', (error) => {
-      console.error('Uncaught Exception:', error);
+    });
+
+    process.on("uncaughtException", (error) => {
+      console.error("Uncaught Exception:", error);
       // handle the error safely
-      
-  });
-  
+    });
 
     // Start the application
     app.listen(port, () => {

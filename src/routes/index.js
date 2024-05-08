@@ -2,6 +2,7 @@ const express = require("express");
 const upload = require("../utils/uploadMiddleware");
 //const userController = require("../controllers/usercontroller");
 const { ObjectId } = require("mongodb");
+const { GridFSBucket } = require("mongodb");
 // Initialize SweetAlert2
 const Swal = require("sweetalert2");
 Swal.fire();
@@ -25,11 +26,41 @@ function isAuthenticated(req, res, next) {
 
 module.exports = (client) => {
   const router = express.Router();
+  const db = client.db("FirstAidCourses");
   const dbCourses = client.db("FirstAidCourses");
   const dbInstructors = client.db("Instructors");
   const privateCoursesCollection = dbCourses.collection("privateCourses");
   const businessCoursesCollection = dbCourses.collection("businessCourses");
   const instructorsCollection = dbInstructors.collection("instructors");
+  const bucket = new GridFSBucket(db, {
+    bucketName: "courseImages",
+  });
+
+  // Route to retrieve images
+  router.get("/image/:filename", (req, res) => {
+    const { filename } = req.params;
+    const decodedFilename = decodeURIComponent(filename);
+    console.log(`Requested filename: ${decodedFilename}`);
+
+    bucket.find({ filename: decodedFilename }).toArray((err, files) => {
+      if (err) {
+        console.error(`Error finding file: ${err}`);
+        return res.status(500).send("Error retrieving file");
+      }
+      if (!files || files.length === 0) {
+        console.log(`No files found for filename: ${decodedFilename}`);
+        return res.status(404).send("No files found");
+      }
+
+      console.log(`Files found for filename: ${decodedFilename}`);
+      const readStream = bucket.openDownloadStreamByName(decodedFilename);
+      readStream.on("error", (error) => {
+        console.error(`Error reading file: ${error}`);
+        res.status(500).send("Error retrieving file");
+      });
+      readStream.pipe(res);
+    });
+  });
 
   // Serve initial pages
   router.get("/", (req, res) => {
@@ -142,7 +173,7 @@ module.exports = (client) => {
     try {
       console.log("Adding a course POST");
       const { title, courseType, duration, price, description } = req.body;
-      const imagePath = req.file ? req.file.filename : "default-filename"; // Ensure fallback for no file case
+      const imagePath = req.file ? req.file.filename : "default-filename";
 
       const collection =
         courseType === "Business"
@@ -176,7 +207,6 @@ module.exports = (client) => {
         console.log("Editing a course");
         const courseId = req.params.id;
         const objectId = new ObjectId(courseId);
-        // Extract updated course data from the request body
         const {
           title,
           courseOrigin,
@@ -185,16 +215,14 @@ module.exports = (client) => {
           price,
           description,
         } = req.body;
-        const imagePath = req.file ? req.file.filename : undefined; // Get the new image path if provided
+        const imagePath = req.file ? req.file.filename : undefined;
 
-        // Check if the course type has changed
         if (courseOrigin == courseType) {
           const collection =
             courseType === "Business"
               ? businessCoursesCollection
               : privateCoursesCollection;
 
-          // Update the course data in the appropriate collection, including the new image path if available
           await collection.updateOne(
             { _id: objectId },
             {
@@ -218,7 +246,6 @@ module.exports = (client) => {
               ? privateCoursesCollection
               : businessCoursesCollection;
 
-          // Update and move the course to the new collection
           await collectionOrigin.updateOne(
             { _id: objectId },
             {
@@ -229,7 +256,7 @@ module.exports = (client) => {
             _id: objectId,
           });
           if (imagePath) {
-            originalCourse.image = imagePath; // Update the image path in the new collection
+            originalCourse.image = imagePath;
           }
           await collectionDestination.insertOne(originalCourse);
           await collectionOrigin.deleteOne({ _id: objectId });

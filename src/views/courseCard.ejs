@@ -1,41 +1,49 @@
-<!--fix this later to be the picture from the database-->
-  <div class="courseCard">
-    <div ><img class="courseCardImg" src="/img/banner.png" alt="" /></div>
-    <div class="courseCardInfo">
-      <h3><%= course.title %></h3>
-      <p>
-        <%= course.duration %> timer • <%= course.price %> <%= course.currency %><%=
-        course.price_excl_vat ? ' (excl. VAT)' : '' %>
-      </p>
-      <p><%= course.description %></p>
-      <button
-        onclick="document.getElementById('orderForm<%= course._id %>').style.display='block'; this.style.display='none'"
-      >
-        Bestil kursus
-      </button>
-      <div id="orderForm<%= course._id %>" style="display: none">
-        <form class="orderForm" action="/order-course" method="post">
-          <input type="hidden" name="courseId" value="<%= course._id %>" />
-          <% if (course.imageId) { %>
-          <img src="/download/<%= course.imageId %>" alt="Kursus Billede" />
-          <% } %>
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Your Email" required />
-          <% if (course.target === 'Business') { %>
-          <input
-            type="text"
-            name="company"
-            placeholder="Virksomheds Navn*"
-            required
-          />
-          <% } %>
-          <textarea
-            name="additionalInfo"
-            placeholder="Ydligere Information"
-          ></textarea>
-          <button type="submit">Bestil kursus</button>
-        </form>
-      </div>
+<!-- fix this later to be the picture from the database -->
+<div class="courseCard">
+  <% if (course && course.image) { %>
+  <img
+    src="/image/<%= encodeURIComponent(course.image) %>"
+    alt="Course Image"
+    style="max-width: 200px"
+  />
+  <% } %>
+  <div class="courseCardInfo">
+    <h3><%= course.title %></h3>
+    <p>
+      <%= course.duration %> timer • <%= course.price %> <%= course.currency
+      %><%= course.price_excl_vat ? ' (excl. VAT)' : '' %>
+    </p>
+    <p><%= course.description %></p>
+    <button
+      onclick="document.getElementById('orderForm<%= course._id %>').style.display='block'; this.style.display='none'"
+    >
+      Bestil kursus
+    </button>
+    <div id="orderForm<%= course._id %>" style="display: none">
+      <form class="orderForm" action="/order-course" method="post">
+        <input type="hidden" name="courseId" value="<%= course._id %>" />
+        <% if (course.image) { %>
+        <img
+          src="/image/<%= encodeURIComponent(course.image) %>"
+          alt="Kursus Billede"
+        />
+        <% } %>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <% if (course.target === 'Business') { %>
+        <input
+          type="text"
+          name="company"
+          placeholder="Virksomheds Navn*"
+          required
+        />
+        <% } %>
+        <textarea
+          name="additionalInfo"
+          placeholder="Ydligere Information"
+        ></textarea>
+        <button type="submit">Bestil kursus</button>
+      </form>
     </div>
   </div>
-
+</div>

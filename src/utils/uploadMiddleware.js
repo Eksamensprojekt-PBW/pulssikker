@@ -1,18 +1,21 @@
+require("dotenv").config();
 const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage").GridFsStorage;
 
 const storage = new GridFsStorage({
   url: process.env.MONGO_URI,
   file: (req, file) => {
-    console.log("Processing file:", file.originalname);
+    const filename = encodeURIComponent(
+      `${Date.now()}-course-${file.originalname}`
+    );
+    console.log("Processing file:", filename);
     return {
       bucketName: "courseImages",
-      filename: `${Date.now()}-course-${file.originalname}`,
+      filename: filename,
     };
   },
 });
 
-// Export the multer instance configured with GridFsStorage
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 module.exports = upload;
