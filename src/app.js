@@ -12,6 +12,7 @@ const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
 const uploadRouter = require("./routes/upload.js").router;
 const connectToDatabase = require('./config/db.js');
+const MongoStore = require('connect-mongo');
 
 // ---------- | Import routes | ----------
 //const coursesRoutes = require("./routes/courses");
@@ -81,22 +82,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// const helmetConfig = {
-//   contentSecurityPolicy: {
-//     useDefaults: true,
-//     directives: {
-//       "script-src": ["'self'"],
-//       "style-src": ["'self'"],
-//       "img-src": ["'self'"],
-//     },
-//   },
-//   frameguard: {
-//     action: "deny",
-//   },
-// };
+app.use(helmet({
+  contentSecurityPolicy: {
+      directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: [],
+      }
+  },
+  frameguard: {
+      action: 'deny'
+  },
+  dnsPrefetchControl: {
+      allow: false
+  }
+}));
 
-
-// app.use(helmet(helmetConfig));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
@@ -106,6 +108,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      clientPromise: connectToDatabase(process.env.MONGO_URI), // Using clientPromise to handle the async nature
+      dbName: 'sessions', // Specify the name of the database where the sessions will be stored
+      collectionName: 'expressSessions' // Specify the collection name
+  }),
     cookie: {
       secure: false, // Ensures cookies are sent over HTTPS. - set to true later
       httpOnly: false, // Prevents client-side JavaScript from reading the session cookie. - set to true later
