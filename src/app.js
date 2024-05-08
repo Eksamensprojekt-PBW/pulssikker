@@ -82,22 +82,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// const helmetConfig = {
-//   contentSecurityPolicy: {
-//     useDefaults: true,
-//     directives: {
-//       "script-src": ["'self'"],
-//       "style-src": ["'self'"],
-//       "img-src": ["'self'"],
-//     },
-//   },
-//   frameguard: {
-//     action: "deny",
-//   },
-// };
+app.use(helmet({
+  contentSecurityPolicy: {
+      directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: [],
+      }
+  },
+  frameguard: {
+      action: 'deny'
+  },
+  dnsPrefetchControl: {
+      allow: false
+  }
+}));
 
-
-// app.use(helmet(helmetConfig));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
