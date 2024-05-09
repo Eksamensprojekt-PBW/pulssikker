@@ -6,41 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kurser</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo_primary.svg" type="image/svg+xml">
 </head>
 <body>
+    <header>
+        <a id="headerLogo" class="icon" href="/"><img src="/img/logo_darkblue.svg" alt=""></a> 
+        <nav>
+            <ul class="logout">
+                <li>
+                <a class="logoutLink" href="/logout"><img class="icon" src="/img/arrow-right-from-bracket-solid.svg" alt="">Log ud</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <section class="info">
     <h1>Kurser</h1>
-    <div class="courseContainer">
+    <div class="itemContainer">
 <div>
-    <a href="/add-course">
+    <a class="addItem" href="/add-course">
         <img class="icon" src="/img/circle-plus-solid.svg" alt="">
     <p>Tilføj kursus</p>
     </a>
 </div>
 <% courses.forEach(course => { %>
     <div class="courseEntry">
-        <p><%= course.title %></p>
-        <a href="/edit-course/<%= course._id %>"><img class="icon" src="/img/pen-to-square-solid.svg" alt=""></a>
-        <button onclick="confirmDelete('<%= course._id %>', 'course')"><img class="icon" src="/img/trash-can-solid.svg" alt=""></button>
+        <div class="courseEntryTitle"><p><%= course.title %></p></div>
+        <a class="editButton" href="/edit-course/<%= course._id %>"><img class="icon" src="/img/pen-to-square-solid.svg" alt=""></a>
+        <button class="trash" onclick="confirmDelete('<%= course._id %>', 'course')"><img class="icon" src="/img/trash-can-solid.svg" alt=""></button>
     </div>
 <% }) %>
 </div>
 </section>
 
+<section class="info">
 <h1>Instruktører</h1>
+<div class="itemContainer">
 <div>
-    <a href="/add-instructor">
+    <a class="addItem" href="/add-instructor">
         <img class="icon" src="/img/circle-plus-solid.svg" alt="">
     <p>Tilføj Instruktør</p>
     </a>
 </div>
 <% instructors.forEach(instructor => { %>
-    <div>
-        <p><%= instructor.name %></p>
-        <a href="/edit-instructor/<%= instructor._id %>"><img class="icon" src="/img/pen-to-square-solid.svg" alt=""></a>
-        <button onclick="confirmDelete('<%= instructor._id %>', 'instructor')"><img class="icon" src="/img/trash-can-solid.svg" alt=""></button>
+    <div class="courseEntry">
+        <div class="courseEntryTitle"><p><%= instructor.name %></p></div>
+        <a class="editButton" href="/edit-instructor/<%= instructor._id %>"><img class="icon" src="/img/pen-to-square-solid.svg" alt=""></a>
+        <button class="trash" onclick="confirmDelete('<%= instructor._id %>', 'instructor')"><img class="icon" src="/img/trash-can-solid.svg" alt=""></button>
     </div>
 <% }) %>
+</div>
+</section>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

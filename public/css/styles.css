@@ -3,6 +3,7 @@
     --primary-hover: #b5320d;
     --primary-fade: #ffac95;
     --secondary: #132235;
+    --tertiary: #d2f3ff;
     --text: #1b232e;
     --overlay: #e4e4e4;
     --bg: #eeeeee;
@@ -85,6 +86,7 @@ p {
   background-color: var(--primary-hover);
   color: var(--overlay);
   transform: scale(0.95);
+  cursor: pointer;
 }
 
 .CTA-secondary {
@@ -129,6 +131,27 @@ p {
     text-align: center;
     padding: 2rem;
     border-radius: 5px;
+}
+.courseForm {
+  background-color: var(--overlay);
+  padding: 2rem;
+  flex-direction: column;
+  display: flex;
+  align-items: start;
+  border-radius: 5px;
+  width: 35rem;
+}
+.courseForm input[type="text"], .courseForm input[type="number"], .courseForm textarea  {
+  width: 100%;
+  border-radius: 5px;
+}
+.courseForm input[type="file"] {
+  background: none;
+}
+.formRadio {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 footer {
   display: flex;
@@ -204,7 +227,8 @@ footer a:hover {
   margin: 0.5rem 0 0.5rem 0;
   height: 2rem;
 }
-.orderForm textarea {
+
+textarea {
   resize: vertical;
 }
 #contactForm {
@@ -215,14 +239,11 @@ footer a:hover {
   background-color: var(--overlay);
   border-radius: 5px;
 }
-#contactForm input, textarea {
+input, textarea {
   border: none;
   background-color: var(--bg);
   margin: 0.5rem 0 0.5rem 0;
   height: 2rem;
-}
-#contactForm textarea {
-  resize: vertical;
 }
 .formContainer {
   display: flex;
@@ -230,17 +251,95 @@ footer a:hover {
   align-items: center;
   padding: 2rem;
 }
+.login {
+  background-color: var(--overlay);
+  width: 75%;
+  border-radius: 5px;
+
+}
+.loginInfo {
+  display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 30rem;
+}
+.loginInfo input {
+  width: 100%;
+}
+.register {
+  display: flex;
+  flex-direction: row;
+}
+.requirements {
+  display: flex;
+  flex-direction: column;
+}
+.requirementsContainer {
+  margin: 2rem 0 0 0;
+}
 .notFound {
   min-height: 50vh;
   display: flex;
   justify-content: center;
 }
-.courseContainer {
+.itemContainer {
   background-color: var(--overlay);
+  border-radius: 5px;
 }
 .courseEntry {
   display: grid;
-  grid-template-columns: 5fr 2fr 2fr; 
+  grid-template-columns: 6fr 1fr 1fr; 
+  align-items: center;
+}
+.courseEntry p {
+  text-align: left;
+  margin-bottom: 0;
+}
+.courseEntryTitle {
+  padding: 1rem;
+}
+.title {
+  text-transform: capitalize;
+}
+.trash {
+  background: none;
+}
+.trash:hover {
+  background: none;
+}
+.editButton {
+  padding: 1rem;
+  border-radius: 5px;
+  transition: 250ms ease;
+}
+.editButton:hover {
+  transform: scale(0.95);
+  cursor: pointer;
+}
+.addItem {
+  margin: 1rem 0 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.addItem p {
+  margin: 0;
+}
+.logout {
+  justify-content: end;
+}
+.logoutLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.secondaryButton {
+  background-color: var(--bg);
+  color: var(--secondary);
+}
+.secondaryButton:hover {
+  background-color: var(--primary-fade);
+  color: var(--secondary);
 }
 @media only screen and (max-width: 768px) {
   /* Adjustments for tablet screens and smaller */

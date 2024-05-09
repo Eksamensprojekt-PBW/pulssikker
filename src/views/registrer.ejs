@@ -3,40 +3,49 @@
 <head>
     <title>Registrer</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo_primary.svg" type="image/svg+xml">
 </head>
 <body>
-    <h1>registrer Page</h1>
-    <% if (errorMessage) { %>
-        <p style="color: red;"><%= errorMessage %></p>
-    <% } %>
-    
-    <form action="/registrer" method="POST">
-        <div>
-            <label for="email">Email:</label>
-            <input type="text" name="email" placeholder="Intast Email" autocomplete="off" required>
-        </div>
-        <div>
-            <label for="name">Brugernavn:</label>
-            <input type="text" name="username" placeholder="Intast Brugernavn" required>
-        </div>
-        <div>
-            <label for="password">Adgangskode:</label>
-            <input type="password" name="password" placeholder="Intast Password" required>
-        </div>
-        <div>
-            <label for="repeatPassword">Gentag Adgangskode:</label>
-            <input type="password" name="repeatPassword" placeholder="Gentag Password" required>
-        </div>
-        <button type="submit">Registrer</button>
-    </form>
-
-    <h2>Password Requirements</h2>
-    <ul>
+    <%- include('header')%>
+    <section class="info requirementsContainer">
+    <h4>Kodeord Krav</h4>
+    <ul class="requirements">
         <li>Skal være mindst 16 tegn lang.</li>
         <li>Skal indeholde mindst ét stort bogstav (A-Z).</li>
         <li>Skal indeholde mindst ét lille bogstav (a-z).</li>
         <li>Skal indeholde mindst ét tal (0-9).</li>
         <li>Skal indeholde mindst ét specialtegn, som ikke er: ('), (") eller (\).</li>
     </ul>
+</section>
+    <section class="info">
+    <h1>Registrer</h1>
+    <% if (errorMessage) { %>
+        <p style="color: red;"><%= errorMessage %></p>
+    <% } %>
+    <div class="formContainer login">
+    <form action="/registrer" method="POST">
+        <div class="loginInfo">
+            <label for="email">Email:</label>
+            <input type="text" name="email" autocomplete="off" required>
+        </div>
+        <div class="loginInfo">
+            <label for="name">Brugernavn:</label>
+            <input type="text" name="username"required>
+        </div>
+        <div class="loginInfo">
+            <label for="password">Adgangskode:</label>
+            <input type="password" name="password" required>
+        </div>
+        <div class="loginInfo">
+            <label for="repeatPassword">Gentag Adgangskode:</label>
+            <input type="password" name="repeatPassword"required>
+        </div>
+        <button type="submit">Registrer</button>
+    </form>
+    </div>
+   
+</section>
+    <%- include('footer') %>
 </body>
 </html>

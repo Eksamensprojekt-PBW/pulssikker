@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo_primary.svg" type="image/svg+xml">
 </head>
 <body>
-    <h1><%= title %></h1>
-    <form action="<%= title === 'tilføj instruktør' ? '/add-instructor' : '/edit-instructor/' + instructor._id %>" method="post" onsubmit="confirmAction()">
+    <header>
+        <a id="headerLogo" class="icon" href="/"><img src="/img/logo_darkblue.svg" alt=""></a> 
+        <nav>
+            <ul class="logout">
+                <li>
+                <a class="logoutLink" href="/logout"><img class="icon" src="/img/arrow-right-from-bracket-solid.svg" alt="">Log ud</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section class="info">
+    <h1 class="title"><%= title %></h1>
+    <div class="formContainer">
+    <form class="courseForm" action="<%= title === 'tilføj instruktør' ? '/add-instructor' : '/edit-instructor/' + instructor._id %>" method="post" onsubmit="confirmAction()">
         <label for="title">Instruktør Navn</label>
         <% if (title === 'tilføj instruktør') { %>
             <input type="text" name="name" id="name" placeholder="">
@@ -20,7 +34,11 @@
         <input type="text" name="description" id="description" <% if (title === 'rediger instruktør' && instructor) { %> value="<%= instructor.description %>" <% } %>>
         <button type="submit">Gem</button>
     </form>
+</div>
+</section>
     <script>
+        document.title = document.title.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+
         function confirmAction() {
         let text;
         if ("<%= title %>" === 'tilføj instruktør') {

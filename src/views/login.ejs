@@ -3,23 +3,30 @@
 <head>
     <title>Login</title>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="/img/logo_primary.svg" type="image/svg+xml">
 </head>
 <body>
-    <h1>Login Page</h1>
+    <%- include('header') %>
+    <section class="info">
+    <h1>Login</h1>
     <% if (errorMessage) { %>
         <p style="color: red;"><%= errorMessage %></p>
     <% } %>
-
+        <div class="formContainer login">
     <form action="/login" method="POST">
-        <div>
+        <div class="loginInfo">
             <label for="name">Brugernavn:</label>
-            <input type="text" id="name" name="username" placeholder="Intast brugernavn" autocomplete="off" required>
+            <input type="text" id="name" name="username" autocomplete="off" required>
         </div>
-        <div>
+        <div class="loginInfo">
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="password" required>
+            <input type="password" id="password" name="password" required>
         </div>
         <button type="submit">Login</button>
     </form>
+</div>
+</section>
+<%- include('footer') %>
 </body>
 </html>
