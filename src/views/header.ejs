@@ -1,7 +1,6 @@
 <header>
     <a id="headerLogo" class="icon" href="/"><img src="/img/logo_darkblue.svg" alt=""></a> 
-    <img class="hamburger-menu-icon icon" src="/img/bars-solid.svg" alt="Menu" onclick="toggleMenu()">
-    <nav>
+    <nav class="main-nav">
         <ul>
             <li><a href="/erhverv">Erhverv</a></li>
             <li><a href="/privat">Privat</a></li>
@@ -9,32 +8,40 @@
             <li><a href="/kontakt">Kontakt os</a></li>
         </ul>
     </nav>
+    <img class="hamburger-menu-icon icon" src="/img/bars-solid.svg" alt="Menu" onclick="toggleMenu()">
 </header>
+<div class="mobile-nav">
+  <nav class="mobile-ul">
+    <ul>
+      <li><a href="/erhverv">Erhverv</a></li>
+      <li><a href="/privat">Privat</a></li>
+      <li><a href="/om">Om os</a></li>
+      <li><a href="/kontakt">Kontakt os</a></li>
+    </ul>
+  </nav>
+</div>
 <script>
   function toggleMenu() {
-  const nav = document.querySelector('nav');
+  const nav = document.querySelector('.mobile-nav');
   nav.classList.toggle('active');
-
-  // Check if the menu is active (has the 'active' class)
-  if (nav.classList.contains('active')) {
-    nav.style.display = 'block'; // Force display block when active
-  } else {
-    // Check if the menu is currently visible before hiding
-    if (nav.style.display === 'block') {
-      nav.style.display = 'none'; // Hide the menu only if it's visible
-    }
-  }
-
-  // Additionally, check screen width on every click and adjust display
-  const isLargeScreen = window.innerWidth > 768;
-  if (isLargeScreen) {
-    nav.classList.remove('active');
-    nav.style.display = 'none'; // Hide the menu on large screens (even if clicked)
-  }
-  
-  window.addEventListener('resize', () => {
-    // ... existing resize event listener code ...
-  });
 }
+
+    function toggleMainNav() {
+      const mainNav = document.querySelector('.main-nav');
+      const mobileNav = document.querySelector('.mobile-nav');
+      const isLargeScreen = window.innerWidth > 800;
+
+      if (isLargeScreen) {
+        mainNav.style.display = 'block';
+        mobileNav.style.display = 'none';
+      } else {
+        mainNav.style.display = 'none';
+        mobileNav.style.display = 'none';
+      }
+    }
+
+    // Call toggleMainNav on load and resize
+    window.addEventListener('load', toggleMainNav);
+    window.addEventListener('resize', toggleMainNav);
 
 </script>

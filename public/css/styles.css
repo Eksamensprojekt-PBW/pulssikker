@@ -20,6 +20,10 @@ body {
 }
 .icon {
     width: 2rem;
+    transition: 250ms ease;
+}
+.icon:hover {
+  transform: scale(0.95);
 }
 a {
   text-decoration: none;
@@ -189,7 +193,7 @@ footer a:hover {
   background-size: cover;
   background-position: center;
   padding: 5rem;
-  height: 25rem;
+  height: 25%;
 }
 .heroContent {
   display: flex;
@@ -253,7 +257,6 @@ input, textarea {
 }
 .login {
   background-color: var(--overlay);
-  width: 75%;
   border-radius: 5px;
 
 }
@@ -290,6 +293,7 @@ input, textarea {
   display: grid;
   grid-template-columns: 6fr 1fr 1fr; 
   align-items: center;
+  border-top: 5px solid var(--bg);
 }
 .courseEntry p {
   text-align: left;
@@ -321,6 +325,7 @@ input, textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 }
 .addItem p {
   margin: 0;
@@ -341,28 +346,72 @@ input, textarea {
   background-color: var(--primary-fade);
   color: var(--secondary);
 }
-@media only screen and (max-width: 768px) {
-  /* Adjustments for tablet screens and smaller */
-  nav {
-    display: none; /* Hide the nav element by default */
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem; /* Add some space between logo and nav */
-  }
 
+.active {
+  display: block !important;
+}
+.mobile-ul {
+  background-color:var(--overlay);
+    width: 50%;
+    position: absolute;
+    right: 0;
+    border-radius: 5px;
+    padding: 2rem 0 2rem 0;
+    font-size: 1.2rem;
+}
+@media only screen and (max-width: 800px) {
+
+  header {
+    justify-content: space-between;
+  }
+  .info {
+    margin: 3rem 0 2rem 0;
+    padding: 0 5% 0 5%;
+  }
+  #courses {
+    gap: 2rem;
+  }
+  .course-card {
+    width: 45%;
+  }
   ul {
     flex-direction: column; /* Display menu items vertically */
     gap: 1rem; /* Add some space between menu items */
   }
-
+  footer {
+    display: grid;
+    padding: 2rem 1rem 2rem 1rem;
+    grid-template-columns: 1fr 3fr 3fr 2fr 2fr;
+  }
   .hamburger-menu-icon {
     display: block; /* Display the hamburger menu icon */
     width: 30px; /* Adjust the width of the icon */
     height: auto; /* Allow the height to adjust proportionally */
     cursor: pointer; /* Change cursor to pointer on hover */
   }
-
-  .active nav {
-    display: block; /* Display the nav when active */
+  
+  .main-nav {
+    display: none; /* Hide main nav for small screens */
   }
+  .mobile-nav {
+    display: block; /* Show mobile nav when active class is present */
+  }
+  .footerLogo {
+    display: none;
+  }
+  footer {
+    display: grid;
+    padding: 2rem 2rem 0rem 2rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+  }
+  #contactForm {
+    width: 80%;
+  }
+  .logout {
+    flex-direction: row;
+  }
+}
+@media only screen and (max-width: 480px) {
+  /* Your CSS styles for mobile phones go here */
 }
