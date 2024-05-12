@@ -45,8 +45,11 @@
         <label for="description">Beskrivelse</label>
         <textarea name="description" id="description"<% if (title === 'rediger kursus' && course) { %> value="<%= course.description %>" <% } %>></textarea>
         <label for="image">Course Image</label>
-        <input type="file" name="imageFile" accept="image/*">
-        <button type="submit">Gem</button>    
+        <input type="file" name="image" accept="image/*">
+        <button type="submit">Gem</button>
+
+        
+        
     </form>
 </div>
 </section>
