@@ -1,8 +1,6 @@
 const express = require("express");
 const upload = require("../utils/uploadMiddleware");
 const uploadImages = require("../config/multerConfig");
-const path = require('path');
-const fs = require('fs');
 //const userController = require("../controllers/usercontroller");
 const { ObjectId } = require("mongodb");
 const { GridFSBucket } = require("mongodb");
@@ -175,7 +173,7 @@ module.exports = (client) => {
     }
   });
   // Route for adding a course
-  router.post("/add-course", uploadImages.single("image"), async (req, res) => {
+  router.post("/add-course", uploadImages.single("imageFile"), async (req, res) => {
     try {
       console.log("Adding a course POST");
       const { title, courseType, duration, price, description } = req.body;
@@ -197,12 +195,9 @@ module.exports = (client) => {
           ? businessCoursesCollection
           : privateCoursesCollection;
 
-          try {
-            // Insert image metadata into ImagesCollection
-            await ImagesCollection.insertOne(metadata);
+          await ImagesCollection.insertOne(metadata);
 
-          } catch (error) {
-            await collection.insertOne({
+          await collection.insertOne({
               title,
               duration,
               price,
@@ -211,7 +206,7 @@ module.exports = (client) => {
               target: courseType,
               image: file.path,
             });
-          }
+
       console.log("Course added with image.");
       res.redirect("/dashboard");
     } catch (error) {

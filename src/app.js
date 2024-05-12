@@ -101,6 +101,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
 
+
 app.use(
   session({
     name: "MySessionID",
@@ -123,6 +124,7 @@ app.use(
 );
 
 // ---------- | Use Routes | ----------
+app.use('/', express.static(path.join(__dirname, 'uploads')));
 
 //app.use("/courses", coursesRoutes);
 
@@ -136,7 +138,6 @@ async function run() {
     app.use("/", courseRoutes(client));
     app.use("/", orderRoutes(db));
     app.use("/", loginRoutes(client));
-    app.use('/uploads', express.static('uploads'));
 
     app.use((req, res) => {
       res.status(404).render("404");

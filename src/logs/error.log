@@ -6,3 +6,6 @@
 2024-05-12T10:03:10.825Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
 2024-05-12T10:03:31.529Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
 2024-05-12T10:14:10.459Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
+2024-05-12T10:58:17.579Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
+2024-05-12T11:09:21.893Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
+2024-05-12T11:11:58.344Z - ERROR: Error: 500 - Message: ENOENT: no such file or directory, open 'E:\Programming\pulssikker\uploads\1715512318340.jpg' - URL: /add-course - Method: POST - IP: ::1

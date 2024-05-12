@@ -24,7 +24,7 @@
         <input type="hidden" name="courseId" value="<%= course._id %>" />
         <% if (course.image) { %>
         <img
-          src="/image/<%= encodeURIComponent(course.image) %>"
+          src="/uploads/<%= course.image %>"
           alt="Kursus Billede"
         />
         <% } %>
