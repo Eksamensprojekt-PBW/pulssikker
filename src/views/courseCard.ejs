@@ -1,11 +1,7 @@
 <!-- fix this later to be the picture from the database -->
 <div class="courseCard">
-  <% if (course && course.image) { %>
-  <img
-    src="/image/<%= encodeURIComponent(course.image) %>"
-    alt="Course Image"
-    style="max-width: 200px"
-  />
+  <% if (course.image) { %>
+    <img src="/uploads/<%= course.image %>" alt="Image for <%= course.title %>" style="max-width: 200px">
   <% } %>
   <div class="courseCardInfo">
     <h3><%= course.title %></h3>
@@ -23,10 +19,7 @@
       <form class="orderForm" action="/order-course" method="post">
         <input type="hidden" name="courseId" value="<%= course._id %>" />
         <% if (course.image) { %>
-        <img
-          src="/uploads/<%= course.image %>"
-          alt="Kursus Billede"
-        />
+          <img src="/uploads/<%= course.image %>" alt="Course Image" style="max-width: 200px">
         <% } %>
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />

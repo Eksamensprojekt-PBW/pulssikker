@@ -30,12 +30,10 @@ module.exports = (client) => {
   const db = client.db("FirstAidCourses");
   const dbCourses = client.db("FirstAidCourses");
   const dbInstructors = client.db("Instructors");
-  const dbImages = client.db("Images");
 
   const privateCoursesCollection = dbCourses.collection("privateCourses");
   const businessCoursesCollection = dbCourses.collection("businessCourses");
   const instructorsCollection = dbInstructors.collection("instructors");
-  const ImagesCollection = dbImages.collection("images");
   const bucket = new GridFSBucket(db, {
     bucketName: "courseImages",
   });
@@ -173,29 +171,18 @@ module.exports = (client) => {
     }
   });
   // Route for adding a course
-  router.post("/add-course", uploadImages.single("imageFile"), async (req, res) => {
+  router.post("/add-course", uploadImages.single("image"), async (req, res) => {
     try {
       console.log("Adding a course POST");
       const { title, courseType, duration, price, description } = req.body;
-      const file = req.file;
-
-      if (!file) {
-        return res.status(400).send('No file uploaded.');
-    }
+      const file = req.file;     
       
-      const metadata = {
-        filename: file.filename,
-        contentType: file.mimetype,
-        uploadDate: new Date(),
-        filePath: file.path
-      };
-
+      if (!req.file) return res.status(400).send('No file uploaded.');
+      
       const collection =
         courseType === "Business"
           ? businessCoursesCollection
           : privateCoursesCollection;
-
-          await ImagesCollection.insertOne(metadata);
 
           await collection.insertOne({
               title,
@@ -204,7 +191,7 @@ module.exports = (client) => {
               currency: "DKK",
               description,
               target: courseType,
-              image: file.path,
+              image: req.file.filename,
             });
 
       console.log("Course added with image.");
