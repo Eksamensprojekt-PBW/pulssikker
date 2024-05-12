@@ -136,6 +136,8 @@ async function run() {
     app.use("/", courseRoutes(client));
     app.use("/", orderRoutes(db));
     app.use("/", loginRoutes(client));
+    app.use('/uploads', express.static('uploads'));
+
     app.use((req, res) => {
       res.status(404).render("404");
     });

@@ -1,5 +1,8 @@
 const express = require("express");
 const upload = require("../utils/uploadMiddleware");
+const uploadImages = require("../config/multerConfig");
+const path = require('path');
+const fs = require('fs');
 //const userController = require("../controllers/usercontroller");
 const { ObjectId } = require("mongodb");
 const { GridFSBucket } = require("mongodb");
@@ -29,9 +32,12 @@ module.exports = (client) => {
   const db = client.db("FirstAidCourses");
   const dbCourses = client.db("FirstAidCourses");
   const dbInstructors = client.db("Instructors");
+  const dbImages = client.db("Images");
+
   const privateCoursesCollection = dbCourses.collection("privateCourses");
   const businessCoursesCollection = dbCourses.collection("businessCourses");
   const instructorsCollection = dbInstructors.collection("instructors");
+  const ImagesCollection = dbImages.collection("images");
   const bucket = new GridFSBucket(db, {
     bucketName: "courseImages",
   });
@@ -169,27 +175,43 @@ module.exports = (client) => {
     }
   });
   // Route for adding a course
-  router.post("/add-course", upload.single("imageFile"), async (req, res) => {
+  router.post("/add-course", uploadImages.single("image"), async (req, res) => {
     try {
       console.log("Adding a course POST");
       const { title, courseType, duration, price, description } = req.body;
-      const imagePath = req.file ? req.file.filename : "default-filename";
+      const file = req.file;
+
+      if (!file) {
+        return res.status(400).send('No file uploaded.');
+    }
+      
+      const metadata = {
+        filename: file.filename,
+        contentType: file.mimetype,
+        uploadDate: new Date(),
+        filePath: file.path
+      };
 
       const collection =
         courseType === "Business"
           ? businessCoursesCollection
           : privateCoursesCollection;
 
-      await collection.insertOne({
-        title,
-        duration,
-        price,
-        currency: "DKK",
-        description,
-        target: courseType,
-        image: imagePath,
-      });
+          try {
+            // Insert image metadata into ImagesCollection
+            await ImagesCollection.insertOne(metadata);
 
+          } catch (error) {
+            await collection.insertOne({
+              title,
+              duration,
+              price,
+              currency: "DKK",
+              description,
+              target: courseType,
+              image: file.path,
+            });
+          }
       console.log("Course added with image.");
       res.redirect("/dashboard");
     } catch (error) {
