@@ -367,13 +367,18 @@ input, textarea {
   display: block !important;
 }
 .mobile-ul {
-  background-color:var(--overlay);
-    width: 50%;
+  background-color:var(--secondary);
+    width: 70%;
     position: absolute;
     right: 0;
     border-radius: 5px;
     padding: 2rem 0 2rem 0;
     font-size: 1.2rem;
+}
+.mobile-ul li {
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid black;
 }
 @media only screen and (max-width: 800px) {
 
