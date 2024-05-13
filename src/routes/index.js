@@ -33,7 +33,7 @@ module.exports = (client) => {
 
   // Serve initial pages
   router.get("/", (req, res) => {
-    res.render("index");
+    res.render("index", { currentPage: 'index' });
   });
 
   router.get("/upload", (req, res) => {
@@ -44,7 +44,7 @@ module.exports = (client) => {
   router.get("/erhverv", async (req, res) => {
     try {
       const courses = await businessCoursesCollection.find({}).toArray();
-      res.render("erhverv", { courses });
+      res.render("erhverv", { courses, currentPage: 'erhverv' });
     } catch (error) {
       console.error("Failed to fetch business courses:", error);
       res.status(500).render("error", { error: "Internal Server Error" }); // You can have a generic error.ejs template
@@ -55,7 +55,7 @@ module.exports = (client) => {
   router.get("/privat", async (req, res) => {
     try {
       const courses = await privateCoursesCollection.find({}).toArray();
-      res.render("privat", { courses });
+      res.render("privat", { courses, currentPage: 'privat' });
     } catch (error) {
       console.error("Failed to fetch private courses:", error);
       res.status(500).render("error", { error: "Internal Server Error" });
@@ -64,13 +64,13 @@ module.exports = (client) => {
 
   // Contact and About pages
   router.get("/kontakt", (req, res) => {
-    res.render("kontakt");
+    res.render("kontakt", {currentPage: 'kontakt'});
   });
 
   router.get("/om", async (req, res) => {
     try {
       const instructors = await instructorsCollection.find({}).toArray();
-      res.render("om", { instructors });
+      res.render("om", { instructors, currentPage: 'om' });
     } catch (error) {
       console.error("Failed to fetch instructors:", error);
       res.status(500).render("error", { error: "Internal Server Error" });

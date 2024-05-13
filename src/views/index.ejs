@@ -8,7 +8,7 @@
     <link rel="icon" href="/img/logo_primary.svg" type="image/svg+xml">
 </head>
 <body>
-    <%- include('header')%>
+    <%- include('header', {currentPage: currentPage}) %>
     <section class="hero">
         <div class="heroContent">
             <h1>Velkommen til PulsSikker</h1>
@@ -18,11 +18,11 @@
     </section>
     <section class="banner">
         <div class="container">
-            <img class="icon" src="/img/pen-ruler-solid.svg" alt="">
+            <img class="icon pros" src="/img/pen-ruler-solid.svg" alt="">
             <p>Skræddersyede Løsninger</p>
         </div>
         <div class="container">
-            <img class="icon" src="/img/chalkboard-user-solid.svg" alt="">
+            <img class="icon pros" src="/img/chalkboard-user-solid.svg" alt="">
             <p>Erfaren Instruktører</p>
         </div>
     </section>

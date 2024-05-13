@@ -33,12 +33,18 @@ header {
   width: 100%;
   padding: 1rem;
   align-items: center;
+  background-color: var(--secondary);
+  color: var(--bg);
 }
 #headerLogo {
   transition: transform 0.3s ease;
 }
 #headerLogo:hover {
   transform: scale(1.1);
+}
+.currentPage {
+  font-weight: bold;
+  text-decoration: underline;
 }
 nav {
   display: block;
@@ -51,22 +57,22 @@ ul {
     gap: 10%;
 }
 ul a {
-  color: var(--text);
+  color: var(--bg);
 }
 ul a:hover {
-  color: var(--primary);
+  text-decoration: underline;
 }
 h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
 }
 h2 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
 }
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 h4, h5, h6, p {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 h1,h2,h3,h4,h5,h6 {
   color: var(--text);
@@ -76,7 +82,9 @@ p {
   color: var(--text);
   margin-bottom: 2rem;
 }
-
+.pros {
+  margin-bottom: 1rem;
+}
 .CTA, button {
   background-color: var(--primary);
   border: none;
@@ -192,12 +200,14 @@ footer a:hover {
   background-image: url(/img/banner.png);
   background-size: cover;
   background-position: center;
-  padding: 5rem;
+  padding: 10rem 0 10rem 3rem;
   height: 25%;
 }
 .heroContent {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .heroContent .CTA {
   width: fit-content;
@@ -215,11 +225,17 @@ footer a:hover {
   background-color: var(--overlay);
   border-radius: 5px;
 }
-.courseCardImg {
-  width: 30rem;
+.courseImg {
+  max-width: 35%;
+  max-height: 300px;
+  object-fit: cover;
 }
 .courseCardInfo {
   padding: 1rem;
+  width: 100%;
+}
+.courseCardInfo button {
+  width: fit-content;
 }
 .orderForm {
   display: flex;
