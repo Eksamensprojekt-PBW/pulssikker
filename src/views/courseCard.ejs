@@ -32,8 +32,38 @@
           name="additionalInfo"
           placeholder="Ydligere Information"
         ></textarea>
-        <button type="submit">Bestil kursus</button>
+        <button id="submitButton" type="submit">Bestil kursus</button>
       </form>
     </div>
   </div>
 </div>
+<script>
+    const email = document.getElementById('email');
+    const company = document.getElementById('company');
+    const additionalInfo = document.getElementById('additionalInfo');
+    const name = document.getElementById('name');
+    const submitButton = document.getElementById('submitButton');
+  
+    submitButton.addEventListener('click', validateForm);
+
+    function validateForm() {
+
+    if (name.value.trim() === '' || email.value.trim() === '' || (company && company.value.trim() === '') || additionalInfo.value.trim() === '') {
+      return false;
+    }
+    confirmAction();
+    return true;
+    }
+
+    function confirmAction() {
+    Swal.fire({
+      icon: "success",
+      title: "Tak for din henvendelse. Du får snart bekræftelsesmail.",
+      showConfirmButton: false,
+      color: "#1b232e",
+      background: "#eeeeee",
+      timer: 7000
+    });
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
