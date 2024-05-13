@@ -9,3 +9,7 @@
 2024-05-12T10:58:17.579Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
 2024-05-12T11:09:21.893Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
 2024-05-12T11:11:58.344Z - ERROR: Error: 500 - Message: ENOENT: no such file or directory, open 'E:\Programming\pulssikker\uploads\1715512318340.jpg' - URL: /add-course - Method: POST - IP: ::1
+2024-05-13T10:20:41.025Z - ERROR: Error: 500 - Message: 88820000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1586:SSL alert number 80
+ - URL: / - Method: GET - IP: ::ffff:127.0.0.1
+2024-05-13T10:21:21.992Z - ERROR: Error: 500 - Message: 88820000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1586:SSL alert number 80
+ - URL: / - Method: GET - IP: ::ffff:127.0.0.1
