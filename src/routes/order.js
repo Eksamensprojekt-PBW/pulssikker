@@ -5,7 +5,6 @@ const { ObjectId } = require("mongodb");
 require("dotenv").config();
 
 module.exports = (db) => {
-
   router.post("/order-course", async (req, res) => {
     const { courseId, name, email, company, additionalInfo } = req.body;
 
@@ -14,18 +13,18 @@ module.exports = (db) => {
     }
 
     let course =
-    (await db
-      .collection("businessCourses")
-      .findOne({ _id: new ObjectId(courseId) })) ||
-    (await db
-      .collection("privateCourses")
-      .findOne({ _id: new ObjectId(courseId) }));
+      (await db
+        .collection("businessCourses")
+        .findOne({ _id: new ObjectId(courseId) })) ||
+      (await db
+        .collection("privateCourses")
+        .findOne({ _id: new ObjectId(courseId) }));
 
-  if (!course) {
-    return res.status(404).send("Course not found.");
-  }
+    if (!course) {
+      return res.status(404).send("Course not found.");
+    }
 
-  const emailBody = `
+    const emailBody = `
     <h1>Course Order Received</h1>
     <p><strong>Name:</strong> ${name}</p>
     <p><strong>Email:</strong> ${email}</p>
@@ -34,27 +33,27 @@ module.exports = (db) => {
     <p><strong>Additional Information:</strong> ${additionalInfo}</p>
   `;
 
-  // Send email to pulssikker@outlook.dk
-  try {
-    await sendEmail({
-      to: "pulssikker@outlook.dk",
-      subject: `New Course Order - ${course.title}`,
-      html: emailBody,
-    });
+    // Send email to pulssikker@outlook.dk
+    try {
+      await sendEmail({
+        to: "pulssikker@outlook.dk",
+        subject: `New Course Order - ${course.title}`,
+        html: emailBody,
+      });
 
-    // Send a thank you email to the user
-    await sendEmail({
-      to: email, // Email entered by the user in the form
-      subject: 'Thank You for Your Order',
-      html: `<p>Dear ${name},</p><p>Thank you for signing up for the course: ${course.title}.</p><p>We will be in touch with more information soon.</p>`,
-    });
+      // Send a thank you email to the user
+      await sendEmail({
+        to: email, // Email entered by the user in the form
+        subject: "Thank You for Your Order",
+        html: `<p>Dear ${name},</p><p>Thank you for signing up for the course: ${course.title}.</p><p>We will be in touch with more information soon.</p>`,
+      });
 
-    res.send("Order has been sent and confirmation email delivered.");
-  } catch (error) {
-    console.error("Failed to send email:", error);
-    res.status(500).send("There was an error processing your order.");
-  }
-});
+      res.render("index", { currentPage: "index" });
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      res.status(500).send("There was an error processing your order.");
+    }
+  });
 
   return router;
 };

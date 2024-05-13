@@ -1,7 +1,11 @@
 <!-- fix this later to be the picture from the database -->
 <div class="courseCard">
   <% if (course.image) { %>
-    <img class="courseImg" src="/uploads/<%= course.image %>" alt="Image for <%= course.title %>">
+  <img
+    class="courseImg"
+    src="/uploads/<%= course.image %>"
+    alt="Image for <%= course.title %>"
+  />
   <% } %>
   <div class="courseCardInfo">
     <h3><%= course.title %></h3>
@@ -16,7 +20,12 @@
       Bestil kursus
     </button>
     <div id="orderForm<%= course._id %>" style="display: none">
-      <form class="orderForm" action="/order-course" method="post">
+      <form
+        class="orderForm"
+        id="form<%= course._id %>"
+        action="/order-course"
+        method="post"
+      >
         <input type="hidden" name="courseId" value="<%= course._id %>" />
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
@@ -32,8 +41,51 @@
           name="additionalInfo"
           placeholder="Ydligere Information"
         ></textarea>
-        <button type="submit">Bestil kursus</button>
+        <button
+          id="submitButton"
+          onclick="confirmOrder(event, '<%= course._id %>')"
+          type="submit"
+        >
+          Bestil kursus
+        </button>
       </form>
     </div>
   </div>
 </div>
+<script>
+  function confirmOrder(event, courseId) {
+    event.preventDefault();
+    const form = document.getElementById("form" + courseId);
+
+    const name = form.querySelector("input[name='name']").value.trim();
+    const email = form.querySelector("input[name='email']").value.trim();
+    const companyField = form.querySelector("input[name='company']");
+    const company = companyField ? companyField.value.trim() : null;
+
+    if (!name || !email || (companyField && !company)) {
+      Swal.fire({
+        icon: "error",
+        title: "Udfyld venligst alle felter.",
+        showConfirmButton: false,
+        color: "#1b232e",
+        background: "#eeeeee",
+        timer: 2000,
+      });
+      return false;
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Tak for din henvendelse! Vi vil kontakte dig hurtigst muligt.",
+      showConfirmButton: false,
+      color: "#1b232e",
+      background: "#eeeeee",
+      timer: 5000,
+    }).then(() => {
+      form.submit();
+    });
+
+    return false;
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
