@@ -119,16 +119,15 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-      clientPromise: connectToDatabase(process.env.MONGO_URI), // Using clientPromise to handle the async nature
-      dbName: "sessions", // Specify the name of the database where the sessions will be stored
-      collectionName: "expressSessions", // Specify the collection name
+      clientPromise: connectToDatabase(process.env.MONGO_URI),
+      dbName: "sessions", 
+      collectionName: "expressSessions",
     }),
     cookie: {
       secure: false, // Ensures cookies are sent over HTTPS. - set to true later
       httpOnly: false, // Prevents client-side JavaScript from reading the session cookie. - set to true later
       maxAge: 3600000, // gemmer session i 1 time
-      sameSite: "strict", // Can be 'strict', 'lax', or 'none' - skal lige se om det er nødvendig
-      // hvis ikke den bøvler så er det ekstar csrf beskyttlese
+      sameSite: "strict",
     },
   })
 );
