@@ -15,7 +15,6 @@ const connectToDatabase = require("./config/db.js");
 const MongoStore = require("connect-mongo");
 
 // ---------- | Import routes | ----------
-//const coursesRoutes = require("./routes/courses");
 const loginRoutes = require("./routes/login");
 
 // ---------- | Initialize App and Variables | ----------
@@ -81,27 +80,28 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use(helmet({
-//   contentSecurityPolicy: {
-//       directives: {
-//           defaultSrc: ["'self'"],
-//           scriptSrc: ["'self'"],
-//           objectSrc: ["'none'"],
-//           upgradeInsecureRequests: [],
-//       }
-//   },
-//   frameguard: {
-//       action: 'deny'
-//   },
-//   dnsPrefetchControl: {
-//       allow: false
-//   }
-// }));
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      },
+    },
+    frameguard: {
+      action: "deny",
+    },
+    dnsPrefetchControl: {
+      allow: false,
+    },
+  })
+);
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(
   session({
@@ -123,12 +123,6 @@ app.use(
     },
   })
 );
-
-// ---------- | Use Routes | ----------
-//app.use('/', express.static(path.join(__dirname, 'uploads')));
-
-//app.use("/courses", coursesRoutes);
-
 // ---------- | run application | ----------
 async function run() {
   try {
