@@ -9,3 +9,259 @@
 2024-05-12T10:58:17.579Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
 2024-05-12T11:09:21.893Z - ERROR: Error: 500 - Message: Unexpected field - URL: /add-course - Method: POST - IP: ::1
 2024-05-12T11:11:58.344Z - ERROR: Error: 500 - Message: ENOENT: no such file or directory, open 'E:\Programming\pulssikker\uploads\1715512318340.jpg' - URL: /add-course - Method: POST - IP: ::1
+2024-05-13T07:07:12.058Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/privat.ejs:11
+    9| </head>
+    10| <body>
+ >> 11| <%- include('header') %>
+    12| <section class="hero">
+    13|     <div class="heroContent">
+    14|         <h1>Kurser til private</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: /privat - Method: GET - IP: ::1
+2024-05-13T07:07:13.887Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/privat.ejs:11
+    9| </head>
+    10| <body>
+ >> 11| <%- include('header') %>
+    12| <section class="hero">
+    13|     <div class="heroContent">
+    14|         <h1>Kurser til private</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: /privat - Method: GET - IP: ::1
+2024-05-13T07:07:14.454Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/privat.ejs:11
+    9| </head>
+    10| <body>
+ >> 11| <%- include('header') %>
+    12| <section class="hero">
+    13|     <div class="heroContent">
+    14|         <h1>Kurser til private</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: /privat - Method: GET - IP: ::1
+2024-05-13T07:07:20.417Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:07:40.104Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:07:48.006Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:10:01.766Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:10:02.224Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:10:02.436Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:10:02.603Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:10:02.747Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:10:02.897Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:10:03.079Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header')%>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:14:07.219Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/index.ejs:11
+    9| </head>
+    10| <body>
+ >> 11|     <%- include('header', {currentPage: currentPage}) %>
+    12|     <section class="hero">
+    13|         <div class="heroContent">
+    14|             <h1>Velkommen til PulsSikker</h1>
+
+currentPage is not defined - URL: / - Method: GET - IP: ::1
+2024-05-13T07:16:29.684Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/login.ejs:10
+    8| </head>
+    9| <body>
+ >> 10|     <%- include('header', {currentPage: currentPage}) %>
+    11|     <section class="info">
+    12|     <h1>Login</h1>
+    13|     <% if (errorMessage) { %>
+
+currentPage is not defined - URL: /login - Method: GET - IP: ::1
+2024-05-13T07:18:21.897Z - ERROR: Error: 500 - Message: /Users/majamiskeri/Desktop/pulssikker/src/views/login.ejs:10
+    8| </head>
+    9| <body>
+ >> 10|     <%- include('header') %>
+    11|     <section class="info">
+    12|     <h1>Login</h1>
+    13|     <% if (errorMessage) { %>
+
+/Users/majamiskeri/Desktop/pulssikker/src/views/header.ejs:5
+    3|     <nav class="main-nav">
+    4|       <ul>
+ >> 5|         <li><a class="<%= currentPage === 'erhverv' ? 'currentPage' : '' %>" href="/erhverv">Erhverv</a></li>
+    6|         <li><a class="<%= currentPage === 'privat' ? 'currentPage' : '' %>" href="/privat">Privat</a></li>
+    7|         <li><a class="<%= currentPage === 'om' ? 'currentPage' : '' %>" href="/om">Om os</a></li>
+    8|         <li><a class="<%= currentPage === 'kontakt' ? 'currentPage' : '' %>" href="/kontakt">Kontakt os</a></li>
+
+currentPage is not defined - URL: /login - Method: GET - IP: ::1
