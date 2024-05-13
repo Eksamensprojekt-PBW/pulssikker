@@ -13,3 +13,54 @@
  - URL: / - Method: GET - IP: ::ffff:127.0.0.1
 2024-05-13T10:21:21.992Z - ERROR: Error: 500 - Message: 88820000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1586:SSL alert number 80
  - URL: / - Method: GET - IP: ::ffff:127.0.0.1
+2024-05-13T14:00:34.851Z - ERROR: Error: 500 - Message: D:\Skole-projekter\pulssikker\src\views\erhverv.ejs:20
+    18| <div class="course-list">
+    19|     <% courses.forEach(function(course) { %>
+ >> 20|         <%- include('courseCard', { course: course }) %>
+    21|     <% }); %>
+    22| </div>
+    23| <%- include('footer') %>
+
+D:\Skole-projekter\pulssikker\src\views\courseCard.ejs:55
+    53|   </div>
+    54| </div>
+ >> 55| <script nonce="<%= nonce %>">
+    56|   function confirmOrder(event, courseId) {
+    57|     event.preventDefault();
+    58|     const form = document.getElementById("form" + courseId);
+
+nonce is not defined - URL: /erhverv - Method: GET - IP: ::1
+2024-05-13T20:52:10.764Z - ERROR: Error: 500 - Message: D:\Skole-projekter\pulssikker\src\views\erhverv.ejs:20
+    18| <div class="course-list">
+    19|     <% courses.forEach(function(course) { %>
+ >> 20|         <%- include('courseCard', { course: course }) %>
+    21|     <% }); %>
+    22| </div>
+    23| <%- include('footer') %>
+
+D:\Skole-projekter\pulssikker\src\views\courseCard.ejs:55
+    53|   </div>
+    54| </div>
+ >> 55| <script nonce="<%= res.locals.nonce %>">
+    56|   function confirmOrder(event, courseId) {
+    57|     event.preventDefault();
+    58|     const form = document.getElementById("form" + courseId);
+
+res is not defined - URL: /erhverv - Method: GET - IP: ::1
+2024-05-13T20:52:13.472Z - ERROR: Error: 500 - Message: D:\Skole-projekter\pulssikker\src\views\privat.ejs:20
+    18| <div class="course-list">
+    19|     <% courses.forEach(function(course) { %>
+ >> 20|         <%- include('courseCard', { course: course }) %>
+    21|     <% }); %>
+    22| </div>
+    23| <%- include('footer') %>
+
+D:\Skole-projekter\pulssikker\src\views\courseCard.ejs:55
+    53|   </div>
+    54| </div>
+ >> 55| <script nonce="<%= res.locals.nonce %>">
+    56|   function confirmOrder(event, courseId) {
+    57|     event.preventDefault();
+    58|     const form = document.getElementById("form" + courseId);
+
+res is not defined - URL: /privat - Method: GET - IP: ::1

@@ -84,20 +84,29 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'"],
-        objectSrc: ["'none'"],
-        upgradeInsecureRequests: [],
+        defaultSrc: ["'self'", "*"], // Tillad alle kilder for testformål
+        scriptSrc: ["'self'", "*", "'unsafe-inline'", "'unsafe-eval'"], // Tillad alle scripts og inline scripts
+        styleSrc: ["'self'", "*", "'unsafe-inline'"], // Tillad alle styles og inline styles
+        imgSrc: ["'self'", "*", "data:"], // Tillad alle billeder og data URIs
+        connectSrc: ["'self'", "*"], // Tillad alle forbindelser (API'er, WebSockets, osv.)
+        fontSrc: ["'self'", "*", "data:"], // Tillad alle skrifttyper og data URIs
+        objectSrc: ["'none'"], // Blokker object, embed og applet tags
+        scriptSrcAttr: ["'unsafe-inline'"], // Tillad unsafe inline scripts i attributter
+        upgradeInsecureRequests: null, // Tillad blandede (HTTP og HTTPS) anmodninger
       },
     },
     frameguard: {
-      action: "deny",
+      action: "deny", // Forhindr framing af din side (Clickjacking-beskyttelse)
     },
     dnsPrefetchControl: {
-      allow: false,
+      allow: false, // Forhindr DNS-prefetching
     },
   })
 );
+
+app.use(helmet.hidePoweredBy()); // Fjern X-Powered-By header
+app.use(helmet.noSniff()); // Forhindr MIME-type sniffing
+app.use(helmet.xssFilter()); // Aktivér XSS filter i gamle versioner af IE
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
