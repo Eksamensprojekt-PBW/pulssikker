@@ -1,3 +1,4 @@
+const { body, param, validationResult } = require('express-validator');
 const express = require("express");
 const uploadImages = require("../config/multerConfig");
 //const userController = require("../controllers/usercontroller");
@@ -139,7 +140,19 @@ module.exports = (client) => {
     }
   });
   // Route for adding a course
-  router.post("/add-course", isAuthenticated, uploadImages.single("image"), async (req, res) => {
+  router.post("/add-course", isAuthenticated, uploadImages.single("image"), [
+    body('title').trim().escape(),
+    body('courseType').trim().escape(),
+    body('duration').trim().escape(),
+    body('price').trim().escape(),
+    body('description').trim().escape()
+  ], async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
       console.log("Adding a course POST");
       const { title, courseType, duration, price, description } = req.body;
@@ -172,8 +185,21 @@ module.exports = (client) => {
   // Route for editing a course (POST request)
   router.post(
     "/edit-course/:id", isAuthenticated,
-    uploadImages.single("image"),
+    uploadImages.single("image"), [
+      param('id').custom(id => ObjectId.isValid(id)).withMessage('Invalid course ID'),
+      body('title').trim().escape(),
+      body('courseOrigin').trim().escape(),
+      body('courseType').trim().escape(),
+      body('duration').trim().escape(),
+      body('price').trim().escape(),
+      body('description').trim().escape()
+    ],
     async (req, res) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       try {
         console.log("Editing a course");
         const courseId = req.params.id;
