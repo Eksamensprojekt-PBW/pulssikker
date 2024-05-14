@@ -1,11 +1,23 @@
 const express = require("express");
 const router = express.Router();
+const { body, validationResult } = require('express-validator');
 const sendEmail = require("../utils/mailer");
 const { ObjectId } = require("mongodb");
 require("dotenv").config();
 
 module.exports = (db) => {
-  router.post("/order-course", async (req, res) => {
+  router.post("/order-course", [
+    body('courseId').custom(value => ObjectId.isValid(value)).withMessage('Invalid course ID'),
+    body('name').trim().escape(),
+    body('email').isEmail().withMessage('Please enter a valid email').normalizeEmail(),
+    body('company').optional().trim().escape(),
+    body('additionalInfo').optional().trim().escape()
+  ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const { courseId, name, email, company, additionalInfo } = req.body;
 
     if (!ObjectId.isValid(courseId)) {
