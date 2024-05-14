@@ -27,7 +27,7 @@
             <input type="text" name="title" id="title" placeholder="">
         <% } else if (title === 'rediger kursus' && course) { %>
             <input type="text" name="title" id="title" value="<%= course.title %>">
-            <!-- Include hidden input field to store course id -->
+            <!-- Hidden input field to store course id -->
             <input type="hidden" id="courseId" name="courseId" value="<%= course._id %>">
             <input type="hidden" id="courseOrigin" name="courseOrigin" value="<%= course.target %>">
         <% } %>
