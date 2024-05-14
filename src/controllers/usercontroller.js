@@ -1,6 +1,7 @@
 // ---------- | Import required modules | ----------
 const bcrypt = require('bcrypt');
 const getUsersCollection = require("../models/user");
+const { validationResult } = require('express-validator');
 
 // ---------- | User controller | ----------
 // This is for defining logic for the login/signup 
@@ -19,6 +20,11 @@ module.exports = (client) => {
     };
 
     const loginUser = async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('login', { errors: errors.array() });
+        }
+
         try {
             const usersCollection = await getUsersCollection(client);
             const user = await usersCollection.findOne({ username: req.body.username });
@@ -52,6 +58,11 @@ module.exports = (client) => {
     
 
     const signupUser = async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render('signup', { errors: errors.array() });
+        }
+        
         try {
             const { username, password, repeatPassword, email } = req.body;
     
