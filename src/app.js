@@ -10,7 +10,6 @@ const helmet = require("helmet");
 const fs = require("fs");
 const courseRoutes = require("./routes/index");
 const orderRoutes = require("./routes/order");
-const uploadRouter = require("./routes/upload.js").router;
 const connectToDatabase = require("./config/db.js");
 const MongoStore = require("connect-mongo");
 
@@ -120,7 +119,7 @@ app.use(
     saveUninitialized: true,
     store: MongoStore.create({
       clientPromise: connectToDatabase(process.env.MONGO_URI),
-      dbName: "sessions", 
+      dbName: "sessions",
       collectionName: "expressSessions",
     }),
     cookie: {

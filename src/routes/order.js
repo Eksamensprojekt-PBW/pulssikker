@@ -43,9 +43,9 @@ module.exports = (db) => {
 
       // Send a thank you email to the user
       await sendEmail({
-        to: email, // Email entered by the user in the form
-        subject: "Thank You for Your Order",
-        html: `<p>Dear ${name},</p><p>Thank you for signing up for the course: ${course.title}.</p><p>We will be in touch with more information soon.</p>`,
+        to: email, // E-mail indtastet af brugeren i formularen
+        subject: "Tak for din bestilling",
+        html: `<p>Kære ${name},</p><p>Tak fordi du har tilmeldt dig kurset: ${course.title}.</p><p>Vi vil snart kontakte dig med flere oplysninger.</p><p>Med venlig hilsen,</p><p>Pulssikker</p>`,
       });
 
       res.render("index", { currentPage: "index" });
