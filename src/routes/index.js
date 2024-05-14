@@ -47,7 +47,7 @@ module.exports = (client) => {
       res.render("erhverv", { courses, currentPage: 'erhverv' });
     } catch (error) {
       console.error("Failed to fetch business courses:", error);
-      res.status(500).render("error", { error: "Internal Server Error" }); // You can have a generic error.ejs template
+      res.status(500).render("error", { error: "Internal Server Error" });
     }
   });
 
@@ -76,6 +76,7 @@ module.exports = (client) => {
       res.status(500).render("error", { error: "Internal Server Error" });
     }
   });
+  //Admin dashboard page
   router.get("/dashboard", isAuthenticated, async (req, res) => {
     try {
       const businessCourses = await businessCoursesCollection
@@ -95,7 +96,7 @@ module.exports = (client) => {
     console.log("Adding a course"); // Add this line
     res.render("courseEdit", { title: "tilføj kursus" });
   });
-
+  //Route for editing course
   router.get("/edit-course/:id", isAuthenticated, async (req, res) => {
     try {
       console.log("Editing a course");
@@ -242,7 +243,7 @@ module.exports = (client) => {
       }
     }
   );
-
+  //Route to delete course
   router.get("/delete-course/:id", isAuthenticated, async (req, res) => {
     try {
       const courseId = req.params.id;
@@ -276,12 +277,12 @@ module.exports = (client) => {
     }
   });
 
-  // Route for adding an instructor-------------------------------
+  // Route for adding an instructor
   router.get("/add-instructor", isAuthenticated, (req, res) => {
     console.log("Adding an instructor"); // Add this line
     res.render("instructorEdit", { title: "tilføj instruktør" });
   });
-
+  //Route for editing an instructor
   router.get("/edit-instructor/:id", isAuthenticated, async (req, res) => {
     try {
       console.log("Editing an instructor");
@@ -320,7 +321,7 @@ module.exports = (client) => {
     }
   });
 
-  // Route for editing an instructor
+  // Route for editing an instructor (POST method)
   router.post("/edit-instructor/:id", isAuthenticated, async (req, res) => {
     try {
       console.log("Editing an instructor");
@@ -341,7 +342,7 @@ module.exports = (client) => {
       res.status(500).send("Internal Server Error");
     }
   });
-
+  //Route for deleting an instructor
   router.get("/delete-instructor/:id", isAuthenticated, async (req, res) => {
     try {
       const courseId = req.params.id;
