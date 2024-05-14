@@ -2,8 +2,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // Connects to the MongoDB database
 const connectToDatabase = async (uri) => {
-    //const uri = process.env.MONGO_URI;
-    const client = new MongoClient(uri, {
+        const client = new MongoClient(uri, {
         serverApi: ServerApiVersion.v1,
         ssl: true,
         tlsAllowInvalidCertificates: false,

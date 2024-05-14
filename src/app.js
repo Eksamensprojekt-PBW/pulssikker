@@ -17,14 +17,18 @@ const MongoStore = require("connect-mongo");
 // ---------- | Import routes | ----------
 const loginRoutes = require("./routes/login");
 
+
 // ---------- | Initialize App and Variables | ----------
 // Variables
 const port = process.env.PORT || 3000;
 const app = express();
 
+
 // ---------- | Configure App and middleware| ----------
+// Set view template engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
 
 // Ensure logs directory exists
 const logsDirectory = path.join(__dirname, "logs");
@@ -56,6 +60,7 @@ const logger = winston.createLogger({
   ],
 });
 
+
 // Morgan setup to use Winston for logging all HTTP requests, including detailed descriptions
 const morganMiddleware = morgan(
   function (tokens, req, res) {
@@ -74,44 +79,47 @@ const morganMiddleware = morgan(
   { stream: { write: (message) => logger.info(message.trim()) } }
 );
 
+
 // ---------- | Setup global middleware | ----------
 app.use(morganMiddleware);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Configures Helmet to enhance security of the app by setting various HTTP headers
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", "*"], // Tillad alle kilder for testformål
-        scriptSrc: ["'self'", "*", "'unsafe-inline'", "'unsafe-eval'"], // Tillad alle scripts og inline scripts
-        styleSrc: ["'self'", "*", "'unsafe-inline'"], // Tillad alle styles og inline styles
-        imgSrc: ["'self'", "*", "data:"], // Tillad alle billeder og data URIs
-        connectSrc: ["'self'", "*"], // Tillad alle forbindelser (API'er, WebSockets, osv.)
-        fontSrc: ["'self'", "*", "data:"], // Tillad alle skrifttyper og data URIs
-        objectSrc: ["'none'"], // Blokker object, embed og applet tags
-        scriptSrcAttr: ["'unsafe-inline'"], // Tillad unsafe inline scripts i attributter
-        upgradeInsecureRequests: null, // Tillad blandede (HTTP og HTTPS) anmodninger
+        defaultSrc: ["'self'", "*"],
+        scriptSrc: ["'self'", "*", "'unsafe-inline'", "'unsafe-eval'"],
+        styleSrc: ["'self'", "*", "'unsafe-inline'"],
+        imgSrc: ["'self'", "*", "data:"],
+        connectSrc: ["'self'", "*"],
+        fontSrc: ["'self'", "*", "data:"],
+        objectSrc: ["'none'"],
+        scriptSrcAttr: ["'unsafe-inline'"],
+        upgradeInsecureRequests: null,
       },
     },
     frameguard: {
-      action: "deny", // Forhindr framing af din side (Clickjacking-beskyttelse)
+      action: "deny",
     },
     dnsPrefetchControl: {
-      allow: false, // Forhindr DNS-prefetching
+      allow: false,
     },
   })
 );
 
-app.use(helmet.hidePoweredBy()); // Fjern X-Powered-By header
-app.use(helmet.noSniff()); // Forhindr MIME-type sniffing
-app.use(helmet.xssFilter()); // Aktivér XSS filter i gamle versioner af IE
+app.use(helmet.hidePoweredBy());
+app.use(helmet.noSniff());
+app.use(helmet.xssFilter()); 
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "../public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Sets up session management for the app with a MongoDB store
 app.use(
   session({
     name: "MySessionID",
@@ -124,13 +132,15 @@ app.use(
       collectionName: "expressSessions",
     }),
     cookie: {
-      secure: false, // Ensures cookies are sent over HTTPS. - set to true later
-      httpOnly: false, // Prevents client-side JavaScript from reading the session cookie. - set to true later
-      maxAge: 3600000, // gemmer session i 1 time
+      secure: false, // Ensures cookies are sent over HTTPS. - set to true in production
+      httpOnly: false, // Prevents client-side JavaScript from reading the session cookie. - set to true in production
+      maxAge: 3600000, // Saves session for one hour
       sameSite: "strict",
     },
   })
 );
+
+
 // ---------- | run application | ----------
 async function run() {
   try {
@@ -141,7 +151,6 @@ async function run() {
     app.use("/", courseRoutes(client));
     app.use("/", orderRoutes(db));
     app.use("/", loginRoutes(client));
-
     app.use((req, res) => {
       res.status(404).render("404");
     });

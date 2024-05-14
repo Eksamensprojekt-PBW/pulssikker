@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// routes/login.js
+// Module exports a function that sets up routing for user authentication
 module.exports = (client) => {
     const userController = require("../controllers/usercontroller")(client);
     router.get('/login', userController.getLoginPage);
