@@ -91,12 +91,12 @@ module.exports = (client) => {
     }
   });
   // Route for adding a course
-  router.get("/add-course", (req, res) => {
+  router.get("/add-course", isAuthenticated, (req, res) => {
     console.log("Adding a course"); // Add this line
     res.render("courseEdit", { title: "tilføj kursus" });
   });
 
-  router.get("/edit-course/:id", async (req, res) => {
+  router.get("/edit-course/:id", isAuthenticated, async (req, res) => {
     try {
       console.log("Editing a course");
       const courseId = req.params.id;
@@ -138,7 +138,7 @@ module.exports = (client) => {
     }
   });
   // Route for adding a course
-  router.post("/add-course", uploadImages.single("image"), async (req, res) => {
+  router.post("/add-course", isAuthenticated, uploadImages.single("image"), async (req, res) => {
     try {
       console.log("Adding a course POST");
       const { title, courseType, duration, price, description } = req.body;
@@ -170,7 +170,7 @@ module.exports = (client) => {
 
   // Route for editing a course (POST request)
   router.post(
-    "/edit-course/:id",
+    "/edit-course/:id", isAuthenticated,
     uploadImages.single("image"),
     async (req, res) => {
       try {
@@ -243,7 +243,7 @@ module.exports = (client) => {
     }
   );
 
-  router.get("/delete-course/:id", async (req, res) => {
+  router.get("/delete-course/:id", isAuthenticated, async (req, res) => {
     try {
       const courseId = req.params.id;
       const objectId = new ObjectId(courseId);
@@ -277,12 +277,12 @@ module.exports = (client) => {
   });
 
   // Route for adding an instructor-------------------------------
-  router.get("/add-instructor", (req, res) => {
+  router.get("/add-instructor", isAuthenticated, (req, res) => {
     console.log("Adding an instructor"); // Add this line
     res.render("instructorEdit", { title: "tilføj instruktør" });
   });
 
-  router.get("/edit-instructor/:id", async (req, res) => {
+  router.get("/edit-instructor/:id", isAuthenticated, async (req, res) => {
     try {
       console.log("Editing an instructor");
       const courseId = req.params.id;
@@ -303,7 +303,7 @@ module.exports = (client) => {
     }
   });
   // Route for adding an instructor
-  router.post("/add-instructor", async (req, res) => {
+  router.post("/add-instructor", isAuthenticated, async (req, res) => {
     try {
       console.log("Adding an instructor");
 
@@ -321,7 +321,7 @@ module.exports = (client) => {
   });
 
   // Route for editing an instructor
-  router.post("/edit-instructor/:id", async (req, res) => {
+  router.post("/edit-instructor/:id", isAuthenticated, async (req, res) => {
     try {
       console.log("Editing an instructor");
       const courseId = req.params.id;
@@ -342,7 +342,7 @@ module.exports = (client) => {
     }
   });
 
-  router.get("/delete-instructor/:id", async (req, res) => {
+  router.get("/delete-instructor/:id", isAuthenticated, async (req, res) => {
     try {
       const courseId = req.params.id;
       const objectId = new ObjectId(courseId);
