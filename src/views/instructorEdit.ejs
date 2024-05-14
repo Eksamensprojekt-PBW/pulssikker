@@ -27,7 +27,7 @@
             <input type="text" name="name" id="name" placeholder="">
         <% } else if (title === 'rediger instruktør' && instructor) { %>
             <input type="text" name="name" id="name" value="<%= instructor.name %>">
-            <!-- Include hidden input field to store instructor id -->
+            <!-- Hidden input field to store instructor id -->
             <input type="hidden" id="courseId" name="courseId" value="<%= instructor._id %>">
         <% } %>
         <label for="description">Beskrivelse</label>
